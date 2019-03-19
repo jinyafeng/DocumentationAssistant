@@ -13,7 +13,7 @@ namespace DocumentationAssistant.Helper
 			{
 				if (char.IsUpper(c) && singleWord.Count > 0)
 				{
-					words.Add(new string(singleWord.ToArray()).ToLower());
+					words.Add(new string(singleWord.ToArray()));
 					singleWord.Clear();
 					singleWord.Add(c);
 				}
@@ -23,7 +23,7 @@ namespace DocumentationAssistant.Helper
 				}
 			}
 
-			words.Add(new string(singleWord.ToArray()).ToLower());
+			words.Add(new string(singleWord.ToArray()));
 
 			return words;
 		}

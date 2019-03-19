@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace DocumentationAssistant.Helper
 {
@@ -19,7 +17,7 @@ namespace DocumentationAssistant.Helper
 
 		public static string GetConstructorComment(string name)
 		{
-			return $" Initializes a new instance of the <see cref=\"{name}\"/> class.";
+			return $"Initializes a new instance of the <see cref=\"{name}\"/> class.";
 		}
 
 		public static string GetPropertyComment(string name, bool isBoolean, bool hasSetter)
@@ -36,15 +34,15 @@ namespace DocumentationAssistant.Helper
 			}
 			else
 			{
-				comment += GetCommonComment(name);
+				comment += " the " + string.Join(" ", SpilitNameAndToLower(name,true));
 			}
-			return comment;
+			return comment+".";
 		}
 
 		public static string GetMethodComment(string name)
 		{
-			string[] parts = SpilitNameAndToLower(name);
-			// parts[0]= new Pluralize.NET.Core.Pluralizer().Pluralize(parts[0]);
+			List<string> parts = SpilitNameAndToLower(name,false);
+			parts[0] = parts[0] + "s";
 			return string.Join(" ", parts) + ".";
 		}
 
@@ -55,20 +53,20 @@ namespace DocumentationAssistant.Helper
 
 		public static string GetReturnComment(string name)
 		{
-			return "The " + name;
+			return "A " + name;
 		}
 
 		private static string GetPropertyBooleanPart(string name)
 		{
-			string booleanPart = " a value indicating whether";
+			string booleanPart = " a value indicating whether ";
 
-			List<string> parts = SpilitNameAndToLower(name).ToList();
+			List<string> parts = SpilitNameAndToLower(name,true).ToList();
 
 			string isWord = parts.FirstOrDefault(o => o == "is");
 			if (isWord != null)
 			{
 				parts.Remove(isWord);
-				parts.Insert(parts.Count - 2, isWord);
+				parts.Insert(parts.Count - 1, isWord);
 			}
 
 			booleanPart += string.Join(" ", parts);
@@ -77,16 +75,15 @@ namespace DocumentationAssistant.Helper
 
 		private static string GetCommonComment(string name)
 		{
-			return $"The {string.Join(" ", SpilitNameAndToLower(name))}.";
+			return $"The {string.Join(" ", SpilitNameAndToLower(name,true))}.";
 		}
 
-		private static string[] SpilitNameAndToLower(string name)
+		private static List<string> SpilitNameAndToLower(string name,bool includeFirst)
 		{
-			Regex splitByUpper = new Regex(@"([A-Z])(?<=[a-z]\1|[A-Za-z]\1(?=[a-z]))");
-			string str = splitByUpper.Replace(name, " $1");
-			str = str.Replace('_', ' ');
-			string[] parts = str.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-			for (int i = 0; i < parts.Length; i++)
+			List<string> parts = NameSpliter.Split(name);
+
+			int i = includeFirst ? 0 : 1;
+			for (; i < parts.Count; i++)
 			{
 				parts[i] = parts[i].ToLower();
 			}
