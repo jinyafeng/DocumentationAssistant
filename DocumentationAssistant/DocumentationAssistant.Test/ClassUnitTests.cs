@@ -2,16 +2,14 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using TestHelper;
-using DocumentationAssistant;
 
 namespace DocumentationAssistant.Test
 {
-    [TestClass]
-    public class ClassUnitTest : CodeFixVerifier
-    {
-        private const string TestCode = @"
+	[TestClass]
+	public class ClassUnitTest : CodeFixVerifier
+	{
+		private const string TestCode = @"
 using System;
 
 namespace Test
@@ -26,7 +24,7 @@ namespace Test
     }
 }";
 
-        private const string TestFixCode = @"
+		private const string TestFixCode = @"
 using System;
 
 namespace Test
@@ -44,41 +42,41 @@ namespace Test
     }
 }";
 
-        [DataTestMethod]
-        [DataRow("")]
-        public void NoDiagnosticsShow(string testCode)
-        {
-            VerifyCSharpDiagnostic(testCode);
-        }
+		[DataTestMethod]
+		[DataRow("")]
+		public void NoDiagnosticsShow(string testCode)
+		{
+			VerifyCSharpDiagnostic(testCode);
+		}
 
-        [DataTestMethod]
-        [DataRow(TestCode,TestFixCode,6,11)]
-        public void ShowDiagnosticAndFix(string testCode,string fixCode,int line,int column)
-        {
-            var expected = new DiagnosticResult
-            {
-                Id = ClassAnalyzer.DiagnosticId,
-                Message = ClassAnalyzer.MessageFormat,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[] {
-                            new DiagnosticResultLocation("Test0.cs", line, column)
-                        }
-            };
+		[DataTestMethod]
+		[DataRow(TestCode, TestFixCode, 6, 11)]
+		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
+		{
+			DiagnosticResult expected = new DiagnosticResult
+			{
+				Id = ClassAnalyzer.DiagnosticId,
+				Message = ClassAnalyzer.MessageFormat,
+				Severity = DiagnosticSeverity.Warning,
+				Locations =
+					new[] {
+							new DiagnosticResultLocation("Test0.cs", line, column)
+						}
+			};
 
-            VerifyCSharpDiagnostic(testCode, expected);
+			VerifyCSharpDiagnostic(testCode, expected);
 
-            VerifyCSharpFix(testCode,fixCode);
-        }
+			VerifyCSharpFix(testCode, fixCode);
+		}
 
-        protected override CodeFixProvider GetCSharpCodeFixProvider()
-        {
-            return new ClassCodeFixProvider();
-        }
+		protected override CodeFixProvider GetCSharpCodeFixProvider()
+		{
+			return new ClassCodeFixProvider();
+		}
 
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
-        {
-            return new ClassAnalyzer();
-        }
-    }
+		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+		{
+			return new ClassAnalyzer();
+		}
+	}
 }

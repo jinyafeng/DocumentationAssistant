@@ -2,16 +2,14 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using TestHelper;
-using DocumentationAssistant;
 
 namespace DocumentationAssistant.Test
 {
-    [TestClass]
-    public class MethodUnitTest : CodeFixVerifier
-    {
-        private const string TestCode = @"
+	[TestClass]
+	public class MethodUnitTest : CodeFixVerifier
+	{
+		private const string TestCode = @"
 using System;
 
 namespace Test
@@ -26,8 +24,8 @@ namespace Test
     }
 }";
 
-        private const  string x = "\"";
-        private const string TestFixCode = @"
+		private const string x = "\"";
+		private const string TestFixCode = @"
 using System;
 
 namespace Test
@@ -44,41 +42,41 @@ namespace Test
         }
     }
 }";
-        [DataTestMethod]
-        [DataRow("")]
-        public void NoDiagnosticsShow(string testCode)
-        {
-            VerifyCSharpDiagnostic(testCode);
-        }
+		[DataTestMethod]
+		[DataRow("")]
+		public void NoDiagnosticsShow(string testCode)
+		{
+			VerifyCSharpDiagnostic(testCode);
+		}
 
-        [DataTestMethod]
-        [DataRow(TestCode,TestFixCode,8,21)]
-        public void ShowDiagnosticAndFix(string testCode,string fixCode,int line,int column)
-        {
-            var expected = new DiagnosticResult
-            {
-                Id = MethodAnalyzer.DiagnosticId,
-                Message = MethodAnalyzer.MessageFormat,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[] {
-                            new DiagnosticResultLocation("Test0.cs", line, column)
-                        }
-            };
+		[DataTestMethod]
+		[DataRow(TestCode, TestFixCode, 8, 21)]
+		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
+		{
+			DiagnosticResult expected = new DiagnosticResult
+			{
+				Id = MethodAnalyzer.DiagnosticId,
+				Message = MethodAnalyzer.MessageFormat,
+				Severity = DiagnosticSeverity.Warning,
+				Locations =
+					new[] {
+							new DiagnosticResultLocation("Test0.cs", line, column)
+						}
+			};
 
-            VerifyCSharpDiagnostic(testCode, expected);
+			VerifyCSharpDiagnostic(testCode, expected);
 
-            VerifyCSharpFix(testCode,fixCode);
-        }
+			VerifyCSharpFix(testCode, fixCode);
+		}
 
-        protected override CodeFixProvider GetCSharpCodeFixProvider()
-        {
-            return new MethodCodeFixProvider();
-        }
+		protected override CodeFixProvider GetCSharpCodeFixProvider()
+		{
+			return new MethodCodeFixProvider();
+		}
 
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
-        {
-            return new MethodAnalyzer();
-        }
-    }
+		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+		{
+			return new MethodAnalyzer();
+		}
+	}
 }

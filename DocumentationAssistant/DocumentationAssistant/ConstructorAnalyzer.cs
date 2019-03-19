@@ -1,54 +1,55 @@
-﻿using DocumentationAssistant.Helper;
+﻿using System.Collections.Immutable;
+using System.Linq;
+using DocumentationAssistant.Helper;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using System.Collections.Immutable;
-using System.Linq;
 
 namespace DocumentationAssistant
 {
-    [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class ConstructorAnalyzer : DiagnosticAnalyzer
-    {
-        private const string Title = "Constructor should have documentation header.";
-        private const string Category = DocumentationCommentHelper.Category;
+	[DiagnosticAnalyzer(LanguageNames.CSharp)]
+	public class ConstructorAnalyzer : DiagnosticAnalyzer
+	{
+		private const string Title = "Constructor should have documentation header.";
 
-        public const string DiagnosticId = "ConstructorDocumentationHeader";
-        public const string MessageFormat = Title;
+		private const string Category = DocumentationCommentHelper.Category;
 
-        private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, true);
-        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get { return ImmutableArray.Create(Rule); } }
+		public const string DiagnosticId = "ConstructorDocumentationHeader";
+		public const string MessageFormat = Title;
 
-        public override void Initialize(AnalysisContext context)
-        {
-            context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.ConstructorDeclaration);
-        }
+		private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, true);
+		public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
-        private static void AnalyzeNode(SyntaxNodeAnalysisContext context)
-        {
-            var node = context.Node as ConstructorDeclarationSyntax;
+		public override void Initialize(AnalysisContext context)
+		{
+			context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.ConstructorDeclaration);
+		}
 
-            var commentTriviaSyntax = node
-                .GetLeadingTrivia()
-                .Select(o=>o.GetStructure())
-                .OfType<DocumentationCommentTriviaSyntax>()
-                .FirstOrDefault();
+		private static void AnalyzeNode(SyntaxNodeAnalysisContext context)
+		{
+			ConstructorDeclarationSyntax node = context.Node as ConstructorDeclarationSyntax;
 
-            if (commentTriviaSyntax!=null)
-            {
-                var hasSummary = commentTriviaSyntax
-                    .ChildNodes()
-                    .OfType<XmlElementSyntax>()
-                    .Any(o=>o.StartTag.Name.ToString().Equals(DocumentationCommentHelper.Summary));
+			DocumentationCommentTriviaSyntax commentTriviaSyntax = node
+				.GetLeadingTrivia()
+				.Select(o => o.GetStructure())
+				.OfType<DocumentationCommentTriviaSyntax>()
+				.FirstOrDefault();
 
-                if (hasSummary)
-                {
-                    return;
-                }
-            }
+			if (commentTriviaSyntax != null)
+			{
+				bool hasSummary = commentTriviaSyntax
+					.ChildNodes()
+					.OfType<XmlElementSyntax>()
+					.Any(o => o.StartTag.Name.ToString().Equals(DocumentationCommentHelper.Summary));
 
-            context.ReportDiagnostic(Diagnostic.Create(Rule,node.Identifier.GetLocation()));
-        }
-    }
+				if (hasSummary)
+				{
+					return;
+				}
+			}
+
+			context.ReportDiagnostic(Diagnostic.Create(Rule, node.Identifier.GetLocation()));
+		}
+	}
 }
