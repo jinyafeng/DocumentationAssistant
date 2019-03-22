@@ -69,9 +69,13 @@ namespace DocumentationAssistant
 				}
 			}
 
-			GenericNameSyntax firstGeneric = declarationSyntax.ChildNodes().OfType<GenericNameSyntax>().First();
-			GenericNameSyntax secondGeneric = firstGeneric.ChildNodes().OfType<GenericNameSyntax>().First();
-			GenericNameSyntax thirdGeneric = secondGeneric.ChildNodes().OfType<GenericNameSyntax>().First();
+			string returnType = declarationSyntax.ReturnType.ToString();
+			if (returnType != "void")
+			{
+				string returnComment = CommentHelper.GetReturnComment(returnType);
+				list = list.AddRange(DocumentationCommentHelper.GetReturnPart(returnComment));
+			}
+
 			return SyntaxFactory.DocumentationCommentTrivia(SyntaxKind.SingleLineDocumentationCommentTrivia, list);
 		}
 	}
