@@ -88,7 +88,7 @@ namespace DocumentationAssistant.Helper
 		{
 			if (specificType is IdentifierNameSyntax)
 			{
-				return specificType + "s" + ".";
+				return Pluralizer.Pluralize(((IdentifierNameSyntax)specificType).Identifier.ValueText) + ".";
 			}
 			else
 			{

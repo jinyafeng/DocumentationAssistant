@@ -49,7 +49,7 @@ namespace DocumentationAssistant.Helper
 		public static string GetMethodComment(string name)
 		{
 			List<string> parts = SpilitNameAndToLower(name, false);
-			parts[0] = parts[0] + "s";
+			parts[0] = Pluralizer.Pluralize(parts[0]);
 			return string.Join(" ", parts) + ".";
 		}
 
