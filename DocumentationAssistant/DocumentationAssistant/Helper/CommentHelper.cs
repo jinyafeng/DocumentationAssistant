@@ -15,9 +15,16 @@ namespace DocumentationAssistant.Helper
 			return GetCommonComment(name);
 		}
 
-		public static string GetConstructorComment(string name)
+		public static string GetConstructorComment(string name, bool isPrivate)
 		{
-			return $"Initializes a new instance of the <see cref=\"{name}\"/> class.";
+			if (isPrivate)
+			{
+				return $"Prevents a default instance of the <see cref=\"{name}\"/> class from being created.";
+			}
+			else
+			{
+				return $"Initializes a new instance of the <see cref=\"{name}\"/> class.";
+			}
 		}
 
 		public static string GetPropertyComment(string name, bool isBoolean, bool hasSetter)
@@ -34,14 +41,14 @@ namespace DocumentationAssistant.Helper
 			}
 			else
 			{
-				comment += " the " + string.Join(" ", SpilitNameAndToLower(name,true));
+				comment += " the " + string.Join(" ", SpilitNameAndToLower(name, true));
 			}
-			return comment+".";
+			return comment + ".";
 		}
 
 		public static string GetMethodComment(string name)
 		{
-			List<string> parts = SpilitNameAndToLower(name,false);
+			List<string> parts = SpilitNameAndToLower(name, false);
 			parts[0] = parts[0] + "s";
 			return string.Join(" ", parts) + ".";
 		}
@@ -60,7 +67,7 @@ namespace DocumentationAssistant.Helper
 		{
 			string booleanPart = " a value indicating whether ";
 
-			List<string> parts = SpilitNameAndToLower(name,true).ToList();
+			List<string> parts = SpilitNameAndToLower(name, true).ToList();
 
 			string isWord = parts.FirstOrDefault(o => o == "is");
 			if (isWord != null)
@@ -75,10 +82,10 @@ namespace DocumentationAssistant.Helper
 
 		private static string GetCommonComment(string name)
 		{
-			return $"The {string.Join(" ", SpilitNameAndToLower(name,true))}.";
+			return $"The {string.Join(" ", SpilitNameAndToLower(name, true))}.";
 		}
 
-		private static List<string> SpilitNameAndToLower(string name,bool includeFirst)
+		private static List<string> SpilitNameAndToLower(string name, bool includeFirst)
 		{
 			List<string> parts = NameSpliter.Split(name);
 

@@ -11,7 +11,7 @@ namespace DocumentationAssistant
 	[DiagnosticAnalyzer(LanguageNames.CSharp)]
 	public class ClassAnalyzer : DiagnosticAnalyzer
 	{
-		private const string Title = "Class should have documentation header.";
+		private const string Title = "The class must have a documentation header.";
 		private const string Category = DocumentationCommentHelper.Category;
 
 		public const string DiagnosticId = "ClassDocumentationHeader";

@@ -57,7 +57,13 @@ namespace DocumentationAssistant
 		{
 			SyntaxList<XmlNodeSyntax> list = SyntaxFactory.List<XmlNodeSyntax>();
 
-			string comment = CommentHelper.GetConstructorComment(declarationSyntax.Identifier.ValueText);
+			bool isPrivate = false;
+			if (declarationSyntax.Modifiers.Any(SyntaxKind.PrivateKeyword))
+			{
+				isPrivate = true;
+			}
+
+			string comment = CommentHelper.GetConstructorComment(declarationSyntax.Identifier.ValueText, isPrivate);
 			list = list.AddRange(DocumentationCommentHelper.GetSummaryPart(comment));
 			if (declarationSyntax.ParameterList.Parameters.Any())
 			{

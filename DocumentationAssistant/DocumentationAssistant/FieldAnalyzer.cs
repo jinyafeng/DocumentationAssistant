@@ -11,7 +11,7 @@ namespace DocumentationAssistant
 	[DiagnosticAnalyzer(LanguageNames.CSharp)]
 	public class FieldAnalyzer : DiagnosticAnalyzer
 	{
-		private const string Title = "Const field should have documentation header.";
+		private const string Title = "The field must have a documentation header.";
 		private const string Category = DocumentationCommentHelper.Category;
 
 		public const string DiagnosticId = "ConstFieldDocumentationHeader";

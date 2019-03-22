@@ -69,13 +69,9 @@ namespace DocumentationAssistant
 				}
 			}
 
-			string returnType = declarationSyntax.ReturnType.ToString();
-			if (returnType != "void")
-			{
-				string returnComment = CommentHelper.GetReturnComment(returnType);
-				list = list.AddRange(DocumentationCommentHelper.GetReturnPart(returnComment));
-			}
-
+			GenericNameSyntax firstGeneric = declarationSyntax.ChildNodes().OfType<GenericNameSyntax>().First();
+			GenericNameSyntax secondGeneric = firstGeneric.ChildNodes().OfType<GenericNameSyntax>().First();
+			GenericNameSyntax thirdGeneric = secondGeneric.ChildNodes().OfType<GenericNameSyntax>().First();
 			return SyntaxFactory.DocumentationCommentTrivia(SyntaxKind.SingleLineDocumentationCommentTrivia, list);
 		}
 	}
