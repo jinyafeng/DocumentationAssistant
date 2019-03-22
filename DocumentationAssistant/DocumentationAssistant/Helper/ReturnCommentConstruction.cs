@@ -48,7 +48,7 @@ namespace DocumentationAssistant.Helper
 
 		private static string GetQualifiedNameTypeComment(QualifiedNameSyntax returnType)
 		{
-			return GetGeneralComment(returnType.ToFullString());
+			return GetGeneralComment(returnType.ToString());
 		}
 
 		private string GetArrayTypeComment(ArrayTypeSyntax arrayTypeSyntax)

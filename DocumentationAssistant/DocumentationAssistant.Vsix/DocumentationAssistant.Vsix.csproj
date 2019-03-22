@@ -53,6 +53,7 @@
     <StartArguments>/rootsuffix Roslyn</StartArguments>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -62,6 +63,11 @@
       <Project>{7E144CCA-9B83-4C1A-83F0-2B8AD87C2CE0}</Project>
       <Name>DocumentationAssistant</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Pluralize.NET, Version=0.1.84.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Pluralize.NET.0.1.84\lib\net46\Pluralize.NET.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
