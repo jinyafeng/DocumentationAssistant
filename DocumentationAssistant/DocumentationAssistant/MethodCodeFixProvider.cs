@@ -72,7 +72,7 @@ namespace DocumentationAssistant
 			string returnType = declarationSyntax.ReturnType.ToString();
 			if (returnType != "void")
 			{
-				string returnComment = CommentHelper.GetReturnComment(returnType);
+				string returnComment = new ReturnCommentConstruction(declarationSyntax.ReturnType).Comment;
 				list = list.AddRange(DocumentationCommentHelper.GetReturnPart(returnComment));
 			}
 

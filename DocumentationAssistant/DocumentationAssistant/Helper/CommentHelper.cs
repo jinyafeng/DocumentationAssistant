@@ -58,11 +58,6 @@ namespace DocumentationAssistant.Helper
 			return GetCommonComment(name);
 		}
 
-		public static string GetReturnComment(string name)
-		{
-			return "A " + name;
-		}
-
 		private static string GetPropertyBooleanPart(string name)
 		{
 			string booleanPart = " a value indicating whether ";
