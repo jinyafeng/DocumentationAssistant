@@ -6,46 +6,59 @@ using TestHelper;
 
 namespace DocumentationAssistant.Test
 {
+	/// <summary>
+	/// The field unit test.
+	/// </summary>
 	[TestClass]
 	public class FieldUnitTest : CodeFixVerifier
 	{
-		private const string TestCode = @"
+		/// <summary>
+		/// The const field test code.
+		/// </summary>
+		private const string ConstFieldTestCode = @"
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Test
+namespace ConsoleApp4
 {
-    class Program
-    {
-        const int x = 123;
+	class FieldTester
+	{
+		const int ConstFieldTester = 666;
 
-        static void Main(string[] args)
-        {
-            int i = 0;
-            Console.WriteLine(i);
-        }
-    }
+		public FieldTester()
+		{
+		}
+	}
 }";
 
-		private const string TestFixCode = @"
+		/// <summary>
+		/// The const field test fix code.
+		/// </summary>
+		private const string ConstFieldTestFixCode = @"
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Test
+namespace ConsoleApp4
 {
-    class Program
-    {
+	class FieldTester
+	{
         /// <summary>
-        /// The field comment.
+        /// The const field tester.
         /// </summary>
-        const int x = 123;
+        const int ConstFieldTester = 666;
 
-        static void Main(string[] args)
-        {
-            int i = 0;
-            Console.WriteLine(i);
-        }
-    }
+		public FieldTester()
+		{
+		}
+	}
 }";
 
+		/// <summary>
+		/// Nos diagnostics show.
+		/// </summary>
+		/// <param name="testCode">The test code.</param>
 		[DataTestMethod]
 		[DataRow("")]
 		public void NoDiagnosticsShow(string testCode)
@@ -53,8 +66,15 @@ namespace Test
 			VerifyCSharpDiagnostic(testCode);
 		}
 
+		/// <summary>
+		/// Shows diagnostic and fix.
+		/// </summary>
+		/// <param name="testCode">The test code.</param>
+		/// <param name="fixCode">The fix code.</param>
+		/// <param name="line">The line.</param>
+		/// <param name="column">The column.</param>
 		[DataTestMethod]
-		[DataRow(TestCode, TestFixCode, 8, 19)]
+		[DataRow(ConstFieldTestCode, ConstFieldTestFixCode, 10, 13)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
 			DiagnosticResult expected = new DiagnosticResult
@@ -73,11 +93,19 @@ namespace Test
 			VerifyCSharpFix(testCode, fixCode);
 		}
 
+		/// <summary>
+		/// Gets c sharp code fix provider.
+		/// </summary>
+		/// <returns>A CodeFixProvider.</returns>
 		protected override CodeFixProvider GetCSharpCodeFixProvider()
 		{
 			return new FieldCodeFixProvider();
 		}
 
+		/// <summary>
+		/// Gets c sharp diagnostic analyzer.
+		/// </summary>
+		/// <returns>A DiagnosticAnalyzer.</returns>
 		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
 		{
 			return new FieldAnalyzer();

@@ -6,46 +6,121 @@ using TestHelper;
 
 namespace DocumentationAssistant.Test
 {
+	/// <summary>
+	/// The property unit test.
+	/// </summary>
 	[TestClass]
 	public class PropertyUnitTest : CodeFixVerifier
 	{
-		private const string TestCode = @"
+		/// <summary>
+		/// The property with getter setter test code.
+		/// </summary>
+		private const string PropertyWithGetterSetterTestCode = @"
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Test
+namespace ConsoleApp4
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            int i = 0;
-            Console.WriteLine(i);
-        }
-
-        private string test { get; set; }
-    }
+	public class PropertyTester
+	{
+		public string PersonName { get; set; }
+	}
 }";
 
-		private const string TestFixCode = @"
+		/// <summary>
+		/// The property with getter setter test fix code.
+		/// </summary>
+		private const string PropertyWithGetterSetterTestFixCode = @"
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Test
+namespace ConsoleApp4
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            int i = 0;
-            Console.WriteLine(i);
-        }
-
+	public class PropertyTester
+	{
         /// <summary>
-        /// The property comment.
+        /// Gets or sets the person name.
         /// </summary>
-        private string test { get; set; }
-    }
+        public string PersonName { get; set; }
+	}
 }";
 
+		/// <summary>
+		/// The property only getter test code.
+		/// </summary>
+		private const string PropertyOnlyGetterTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+		public string PersonName { get; }
+	}
+}";
+
+		/// <summary>
+		/// The property only getter test fix code.
+		/// </summary>
+		private const string PropertyOnlyGetterTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+        /// <summary>
+        /// Gets the person name.
+        /// </summary>
+        public string PersonName { get; }
+	}
+}";
+
+		/// <summary>
+		/// The boolean property test code.
+		/// </summary>
+		private const string BooleanPropertyTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+		public bool IsTesterStarted { get; set; }
+	}
+}";
+
+		/// <summary>
+		/// The boolean property test fix code.
+		/// </summary>
+		private const string BooleanPropertyTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+        /// <summary>
+        /// Gets or sets a value indicating whether tester is started.
+        /// </summary>
+        public bool IsTesterStarted { get; set; }
+	}
+}";
+
+		/// <summary>
+		/// Nos diagnostics show.
+		/// </summary>
+		/// <param name="testCode">The test code.</param>
 		[DataTestMethod]
 		[DataRow("")]
 		public void NoDiagnosticsShow(string testCode)
@@ -53,8 +128,17 @@ namespace Test
 			VerifyCSharpDiagnostic(testCode);
 		}
 
+		/// <summary>
+		/// Shows diagnostic and fix.
+		/// </summary>
+		/// <param name="testCode">The test code.</param>
+		/// <param name="fixCode">The fix code.</param>
+		/// <param name="line">The line.</param>
+		/// <param name="column">The column.</param>
 		[DataTestMethod]
-		[DataRow(TestCode, TestFixCode, 14, 24)]
+		[DataRow(PropertyWithGetterSetterTestCode, PropertyWithGetterSetterTestFixCode, 10, 17)]
+		[DataRow(PropertyOnlyGetterTestCode, PropertyOnlyGetterTestFixCode, 10, 17)]
+		[DataRow(BooleanPropertyTestCode, BooleanPropertyTestFixCode, 10, 15)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
 			DiagnosticResult expected = new DiagnosticResult
@@ -73,11 +157,19 @@ namespace Test
 			VerifyCSharpFix(testCode, fixCode);
 		}
 
+		/// <summary>
+		/// Gets c sharp code fix provider.
+		/// </summary>
+		/// <returns>A CodeFixProvider.</returns>
 		protected override CodeFixProvider GetCSharpCodeFixProvider()
 		{
 			return new PropertyCodeFixProvider();
 		}
 
+		/// <summary>
+		/// Gets c sharp diagnostic analyzer.
+		/// </summary>
+		/// <returns>A DiagnosticAnalyzer.</returns>
 		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
 		{
 			return new PropertyAnalyzer();
