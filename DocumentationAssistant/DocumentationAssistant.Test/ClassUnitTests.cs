@@ -6,42 +6,49 @@ using TestHelper;
 
 namespace DocumentationAssistant.Test
 {
+	/// <summary>
+	/// The class unit test.
+	/// </summary>
 	[TestClass]
 	public class ClassUnitTest : CodeFixVerifier
 	{
+		/// <summary>
+		/// The test code.
+		/// </summary>
 		private const string TestCode = @"
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Test
+namespace ConsoleApp4
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            int i = 0;
-            Console.WriteLine(i);
-        }
-    }
+	class ClassTester
+	{
+	}
 }";
 
+		/// <summary>
+		/// The test fix code.
+		/// </summary>
 		private const string TestFixCode = @"
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Test
+namespace ConsoleApp4
 {
     /// <summary>
-    /// test test.
+    /// The class tester.
     /// </summary>
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            int i = 0;
-            Console.WriteLine(i);
-        }
-    }
+    class ClassTester
+	{
+	}
 }";
 
+		/// <summary>
+		/// Nos diagnostics show.
+		/// </summary>
+		/// <param name="testCode">The test code.</param>
 		[DataTestMethod]
 		[DataRow("")]
 		public void NoDiagnosticsShow(string testCode)
@@ -49,8 +56,15 @@ namespace Test
 			VerifyCSharpDiagnostic(testCode);
 		}
 
+		/// <summary>
+		/// Shows diagnostic and fix.
+		/// </summary>
+		/// <param name="testCode">The test code.</param>
+		/// <param name="fixCode">The fix code.</param>
+		/// <param name="line">The line.</param>
+		/// <param name="column">The column.</param>
 		[DataTestMethod]
-		[DataRow(TestCode, TestFixCode, 6, 11)]
+		[DataRow(TestCode, TestFixCode, 8, 8)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
 			DiagnosticResult expected = new DiagnosticResult
@@ -69,11 +83,19 @@ namespace Test
 			VerifyCSharpFix(testCode, fixCode);
 		}
 
+		/// <summary>
+		/// Gets c sharp code fix provider.
+		/// </summary>
+		/// <returns>A CodeFixProvider.</returns>
 		protected override CodeFixProvider GetCSharpCodeFixProvider()
 		{
 			return new ClassCodeFixProvider();
 		}
 
+		/// <summary>
+		/// Gets c sharp diagnostic analyzer.
+		/// </summary>
+		/// <returns>A DiagnosticAnalyzer.</returns>
 		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
 		{
 			return new ClassAnalyzer();
