@@ -12,18 +12,36 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace DocumentationAssistant
 {
+	/// <summary>
+	/// The field code fix provider.
+	/// </summary>
 	[ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(FieldCodeFixProvider)), Shared]
 	public class FieldCodeFixProvider : CodeFixProvider
 	{
+		/// <summary>
+		/// The title.
+		/// </summary>
 		private const string title = "Add documentation header to this field.";
 
+		/// <summary>
+		/// Gets the fixable diagnostic ids.
+		/// </summary>
 		public sealed override ImmutableArray<string> FixableDiagnosticIds => ImmutableArray.Create(FieldAnalyzer.DiagnosticId);
 
+		/// <summary>
+		/// Gets fix all provider.
+		/// </summary>
+		/// <returns>A FixAllProvider.</returns>
 		public sealed override FixAllProvider GetFixAllProvider()
 		{
 			return WellKnownFixAllProviders.BatchFixer;
 		}
 
+		/// <summary>
+		/// Registers code fixes async.
+		/// </summary>
+		/// <param name="context">The context.</param>
+		/// <returns>A Task.</returns>
 		public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
 		{
 			SyntaxNode root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
@@ -41,6 +59,14 @@ namespace DocumentationAssistant
 				diagnostic);
 		}
 
+		/// <summary>
+		/// Adds documentation header async.
+		/// </summary>
+		/// <param name="document">The document.</param>
+		/// <param name="root">The root.</param>
+		/// <param name="declarationSyntax">The declaration syntax.</param>
+		/// <param name="cancellationToken">The cancellation token.</param>
+		/// <returns>A Document.</returns>
 		private async Task<Document> AddDocumentationHeaderAsync(Document document, SyntaxNode root, FieldDeclarationSyntax declarationSyntax, CancellationToken cancellationToken)
 		{
 			SyntaxTriviaList leadingTrivia = declarationSyntax.GetLeadingTrivia();

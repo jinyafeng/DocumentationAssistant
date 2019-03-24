@@ -11,7 +11,7 @@ namespace DocumentationAssistant.Helper
 	public static class DocumentationHeaderHelper
 	{
 		/// <summary>
-		/// The category.
+		/// The category of the diagnostic.
 		/// </summary>
 		public const string Category = "DocumentationHeader";
 

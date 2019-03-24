@@ -3,60 +3,95 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace DocumentationAssistant.Helper
 {
+	/// <summary>
+	/// The return comment construction.
+	/// </summary>
 	public class ReturnCommentConstruction
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ReturnCommentConstruction"/> class.
+		/// </summary>
+		/// <param name="returnType">The return type.</param>
 		public ReturnCommentConstruction(TypeSyntax returnType)
 		{
 			if (returnType is PredefinedTypeSyntax)
 			{
-				Comment = GetPrefinedTypeComment(returnType as PredefinedTypeSyntax);
+				Comment = GeneratePrefinedTypeComment(returnType as PredefinedTypeSyntax);
 			}
 			else if (returnType is IdentifierNameSyntax)
 			{
-				Comment = GetIdentifierNameTypeComment(returnType as IdentifierNameSyntax);
+				Comment = GenerateIdentifierNameTypeComment(returnType as IdentifierNameSyntax);
 			}
 			else if (returnType is QualifiedNameSyntax)
 			{
-				Comment = GetQualifiedNameTypeComment(returnType as QualifiedNameSyntax);
+				Comment = GenerateQualifiedNameTypeComment(returnType as QualifiedNameSyntax);
 			}
 			else if (returnType is GenericNameSyntax)
 			{
-				Comment = GetGenericTypeComment(returnType as GenericNameSyntax);
+				Comment = GenerateGenericTypeComment(returnType as GenericNameSyntax);
 			}
 			else if (returnType is ArrayTypeSyntax)
 			{
-				Comment = GetArrayTypeComment(returnType as ArrayTypeSyntax);
+				Comment = GenerateArrayTypeComment(returnType as ArrayTypeSyntax);
 			}
 			else
 			{
-				Comment = GetGeneralComment(returnType.ToFullString());
+				Comment = GenerateGeneralComment(returnType.ToFullString());
 			}
 		}
 
+		/// <summary>
+		/// Generates the comment.
+		/// </summary>
 		public string Comment { get; }
 
-		private static string GetPrefinedTypeComment(PredefinedTypeSyntax returnType)
+		/// <summary>
+		/// Generates prefined type comment.
+		/// </summary>
+		/// <param name="returnType">The return type.</param>
+		/// <returns>The comment.</returns>
+		private static string GeneratePrefinedTypeComment(PredefinedTypeSyntax returnType)
 		{
 			// xxx will remind user to give it a specific name.
-			return "The xxx";
+			return "The xxx.";
 		}
 
-		private static string GetIdentifierNameTypeComment(IdentifierNameSyntax returnType)
+		/// <summary>
+		/// Generates identifier name type comment.
+		/// </summary>
+		/// <param name="returnType">The return type.</param>
+		/// <returns>The comment.</returns>
+		private static string GenerateIdentifierNameTypeComment(IdentifierNameSyntax returnType)
 		{
-			return GetGeneralComment(returnType.Identifier.ValueText);
+			return GenerateGeneralComment(returnType.Identifier.ValueText);
 		}
 
-		private static string GetQualifiedNameTypeComment(QualifiedNameSyntax returnType)
+		/// <summary>
+		/// Generates qualified name type comment.
+		/// </summary>
+		/// <param name="returnType">The return type.</param>
+		/// <returns>The comment.</returns>
+		private static string GenerateQualifiedNameTypeComment(QualifiedNameSyntax returnType)
 		{
-			return GetGeneralComment(returnType.ToString());
+			return GenerateGeneralComment(returnType.ToString());
 		}
 
-		private string GetArrayTypeComment(ArrayTypeSyntax arrayTypeSyntax)
+		/// <summary>
+		/// Generates array type comment.
+		/// </summary>
+		/// <param name="arrayTypeSyntax">The array type syntax.</param>
+		/// <returns>The comment.</returns>
+		private string GenerateArrayTypeComment(ArrayTypeSyntax arrayTypeSyntax)
 		{
 			return "An array of " + DetermineSpecificObjectName(arrayTypeSyntax.ElementType);
 		}
 
-		private static string GetGenericTypeComment(GenericNameSyntax returnType)
+		/// <summary>
+		/// Generates generic type comment.
+		/// </summary>
+		/// <param name="returnType">The return type.</param>
+		/// <returns>The comment.</returns>
+		private static string GenerateGenericTypeComment(GenericNameSyntax returnType)
 		{
 			// ReadOnlyCollection IReadOnlyCollection 
 			string genericTypeStr = returnType.Identifier.ValueText;
@@ -73,17 +108,27 @@ namespace DocumentationAssistant.Helper
 
 			if (genericTypeStr.Contains("Dictionary"))
 			{
-				return GetGeneralComment(genericTypeStr);
+				return GenerateGeneralComment(genericTypeStr);
 			}
 
-			return GetGeneralComment(genericTypeStr);
+			return GenerateGeneralComment(genericTypeStr);
 		}
 
-		private static string GetGeneralComment(string returnType)
+		/// <summary>
+		/// Generates general comment.
+		/// </summary>
+		/// <param name="returnType">The return type.</param>
+		/// <returns>The comment.</returns>
+		private static string GenerateGeneralComment(string returnType)
 		{
-			return GetStartedWord(returnType) + " " + returnType + ".";
+			return DetermineStartedWord(returnType) + " " + returnType + ".";
 		}
 
+		/// <summary>
+		/// Determines specific object name.
+		/// </summary>
+		/// <param name="specificType">The specific type.</param>
+		/// <returns>The comment.</returns>
 		private static string DetermineSpecificObjectName(TypeSyntax specificType)
 		{
 			if (specificType is IdentifierNameSyntax)
@@ -97,7 +142,12 @@ namespace DocumentationAssistant.Helper
 			}
 		}
 
-		private static string GetStartedWord(string returnType)
+		/// <summary>
+		/// Determines started word.
+		/// </summary>
+		/// <param name="returnType">The return type.</param>
+		/// <returns>The comment.</returns>
+		private static string DetermineStartedWord(string returnType)
 		{
 			List<char> vowelChars = new List<char>() { 'a', 'e', 'i', 'o', 'u' };
 			if (vowelChars.Contains(char.ToLower(returnType[0])))
