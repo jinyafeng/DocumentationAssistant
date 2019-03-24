@@ -12,12 +12,13 @@ namespace DocumentationAssistant
 	public class ClassAnalyzer : DiagnosticAnalyzer
 	{
 		private const string Title = "The class must have a documentation header.";
-		private const string Category = DocumentationCommentHelper.Category;
+		private const string Category = DocumentationHeaderHelper.Category;
 
 		public const string DiagnosticId = "ClassDocumentationHeader";
 		public const string MessageFormat = Title;
 
 		private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, true);
+
 		public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
 		public override void Initialize(AnalysisContext context)
@@ -40,7 +41,7 @@ namespace DocumentationAssistant
 				bool hasSummary = commentTriviaSyntax
 					.ChildNodes()
 					.OfType<XmlElementSyntax>()
-					.Any(o => o.StartTag.Name.ToString().Equals(DocumentationCommentHelper.Summary));
+					.Any(o => o.StartTag.Name.ToString().Equals(DocumentationHeaderHelper.Summary));
 
 				if (hasSummary)
 				{

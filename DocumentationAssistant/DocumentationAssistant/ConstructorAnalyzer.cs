@@ -13,7 +13,7 @@ namespace DocumentationAssistant
 	{
 		private const string Title = "The constructor must have a documentation header.";
 
-		private const string Category = DocumentationCommentHelper.Category;
+		private const string Category = DocumentationHeaderHelper.Category;
 
 		public const string DiagnosticId = "ConstructorDocumentationHeader";
 		public const string MessageFormat = Title;
@@ -41,7 +41,7 @@ namespace DocumentationAssistant
 				bool hasSummary = commentTriviaSyntax
 					.ChildNodes()
 					.OfType<XmlElementSyntax>()
-					.Any(o => o.StartTag.Name.ToString().Equals(DocumentationCommentHelper.Summary));
+					.Any(o => o.StartTag.Name.ToString().Equals(DocumentationHeaderHelper.Summary));
 
 				if (hasSummary)
 				{

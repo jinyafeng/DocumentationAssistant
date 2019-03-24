@@ -12,7 +12,7 @@ namespace DocumentationAssistant
 	public class MethodAnalyzer : DiagnosticAnalyzer
 	{
 		private const string Title = "The method must have a documentation header.";
-		private const string Category = DocumentationCommentHelper.Category;
+		private const string Category = DocumentationHeaderHelper.Category;
 
 		public const string DiagnosticId = "MethodDocumentationHeader";
 		public const string MessageFormat = Title;
@@ -40,7 +40,7 @@ namespace DocumentationAssistant
 				bool hasSummary = commentTriviaSyntax
 					.ChildNodes()
 					.OfType<XmlElementSyntax>()
-					.Any(o => o.StartTag.Name.ToString().Equals(DocumentationCommentHelper.Summary));
+					.Any(o => o.StartTag.Name.ToString().Equals(DocumentationHeaderHelper.Summary));
 
 				if (hasSummary)
 				{

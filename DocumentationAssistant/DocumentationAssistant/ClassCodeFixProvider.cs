@@ -45,8 +45,8 @@ namespace DocumentationAssistant
 		{
 			SyntaxTriviaList leadingTrivia = declarationSyntax.GetLeadingTrivia();
 
-			string comment = CommentHelper.GetClassComment(declarationSyntax.Identifier.ValueText);
-			DocumentationCommentTriviaSyntax commentTrivia = await Task.Run(() => DocumentationCommentHelper.GetOnlySummaryCommentTrivia(comment), cancellationToken);
+			string comment = CommentHelper.CreateClassComment(declarationSyntax.Identifier.ValueText);
+			DocumentationCommentTriviaSyntax commentTrivia = await Task.Run(() => DocumentationHeaderHelper.CreateOnlySummaryDocumentationCommentTrivia(comment), cancellationToken);
 
 			SyntaxTriviaList newLeadingTrivia = leadingTrivia.Insert(leadingTrivia.Count - 1, SyntaxFactory.Trivia(commentTrivia));
 			ClassDeclarationSyntax newDeclaration = declarationSyntax.WithLeadingTrivia(newLeadingTrivia);

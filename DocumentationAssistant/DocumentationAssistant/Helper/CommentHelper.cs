@@ -3,19 +3,38 @@ using System.Linq;
 
 namespace DocumentationAssistant.Helper
 {
+	/// <summary>
+	/// The comment helper.
+	/// </summary>
 	public static class CommentHelper
 	{
-		public static string GetClassComment(string name)
+		/// <summary>
+		/// Creates class comment.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns>The class comment.</returns>
+		public static string CreateClassComment(string name)
 		{
-			return GetCommonComment(name);
+			return CreateCommonComment(name);
 		}
 
-		public static string GetFieldComment(string name)
+		/// <summary>
+		/// Creates field comment.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns>The field comment.</returns>
+		public static string CreateFieldComment(string name)
 		{
-			return GetCommonComment(name);
+			return CreateCommonComment(name);
 		}
 
-		public static string GetConstructorComment(string name, bool isPrivate)
+		/// <summary>
+		/// Creates constructor comment.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="isPrivate">If true, the constructor accessibility is private.</param>
+		/// <returns>The contructor comment.</returns>
+		public static string CreateConstructorComment(string name, bool isPrivate)
 		{
 			if (isPrivate)
 			{
@@ -27,7 +46,14 @@ namespace DocumentationAssistant.Helper
 			}
 		}
 
-		public static string GetPropertyComment(string name, bool isBoolean, bool hasSetter)
+		/// <summary>
+		/// Creates property comment.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="isBoolean">If ture, the property type is boolean.</param>
+		/// <param name="hasSetter">If ture, the property has setter.</param>
+		/// <returns>The property comment.</returns>
+		public static string CreatePropertyComment(string name, bool isBoolean, bool hasSetter)
 		{
 			string comment = "Gets";
 			if (hasSetter)
@@ -37,7 +63,7 @@ namespace DocumentationAssistant.Helper
 
 			if (isBoolean)
 			{
-				comment += GetPropertyBooleanPart(name);
+				comment += CreatePropertyBooleanPart(name);
 			}
 			else
 			{
@@ -46,19 +72,34 @@ namespace DocumentationAssistant.Helper
 			return comment + ".";
 		}
 
-		public static string GetMethodComment(string name)
+		/// <summary>
+		/// Creates method comment.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns>The method comment.</returns>
+		public static string CreateMethodComment(string name)
 		{
 			List<string> parts = SpilitNameAndToLower(name, false);
 			parts[0] = Pluralizer.Pluralize(parts[0]);
 			return string.Join(" ", parts) + ".";
 		}
 
-		public static string GetParameterComment(string name)
+		/// <summary>
+		/// Creates parameter comment.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns>The parameter comment.</returns>
+		public static string CreateParameterComment(string name)
 		{
-			return GetCommonComment(name);
+			return CreateCommonComment(name);
 		}
 
-		private static string GetPropertyBooleanPart(string name)
+		/// <summary>
+		/// Creates property boolean part.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns>The property comment boolean part.</returns>
+		private static string CreatePropertyBooleanPart(string name)
 		{
 			string booleanPart = " a value indicating whether ";
 
@@ -75,11 +116,22 @@ namespace DocumentationAssistant.Helper
 			return booleanPart;
 		}
 
-		private static string GetCommonComment(string name)
+		/// <summary>
+		/// Creates common comment.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns>The common comment.</returns>
+		private static string CreateCommonComment(string name)
 		{
 			return $"The {string.Join(" ", SpilitNameAndToLower(name, true))}.";
 		}
 
+		/// <summary>
+		/// Spilits name and make words lower.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="includeFirst">If true, the first character will be lower.</param>
+		/// <returns>A list of words.</returns>
 		private static List<string> SpilitNameAndToLower(string name, bool includeFirst)
 		{
 			List<string> parts = NameSpliter.Split(name);

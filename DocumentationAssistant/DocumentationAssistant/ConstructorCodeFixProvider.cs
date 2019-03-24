@@ -44,7 +44,7 @@ namespace DocumentationAssistant
 		private async Task<Document> AddDocumentationHeaderAsync(Document document, SyntaxNode root, ConstructorDeclarationSyntax declarationSyntax, CancellationToken cancellationToken)
 		{
 			SyntaxTriviaList leadingTrivia = declarationSyntax.GetLeadingTrivia();
-			DocumentationCommentTriviaSyntax commentTrivia = await Task.Run(() => GetComments(declarationSyntax), cancellationToken);
+			DocumentationCommentTriviaSyntax commentTrivia = await Task.Run(() => CreateDocumentationCommentTriviaSyntax(declarationSyntax), cancellationToken);
 
 			SyntaxTriviaList newLeadingTrivia = leadingTrivia.Insert(leadingTrivia.Count - 1, SyntaxFactory.Trivia(commentTrivia));
 			ConstructorDeclarationSyntax newDeclaration = declarationSyntax.WithLeadingTrivia(newLeadingTrivia);
@@ -53,7 +53,7 @@ namespace DocumentationAssistant
 			return document.WithSyntaxRoot(newRoot);
 		}
 
-		private static DocumentationCommentTriviaSyntax GetComments(ConstructorDeclarationSyntax declarationSyntax)
+		private static DocumentationCommentTriviaSyntax CreateDocumentationCommentTriviaSyntax(ConstructorDeclarationSyntax declarationSyntax)
 		{
 			SyntaxList<XmlNodeSyntax> list = SyntaxFactory.List<XmlNodeSyntax>();
 
@@ -63,14 +63,14 @@ namespace DocumentationAssistant
 				isPrivate = true;
 			}
 
-			string comment = CommentHelper.GetConstructorComment(declarationSyntax.Identifier.ValueText, isPrivate);
-			list = list.AddRange(DocumentationCommentHelper.GetSummaryPart(comment));
+			string comment = CommentHelper.CreateConstructorComment(declarationSyntax.Identifier.ValueText, isPrivate);
+			list = list.AddRange(DocumentationHeaderHelper.CreateSummaryPartNodes(comment));
 			if (declarationSyntax.ParameterList.Parameters.Any())
 			{
 				foreach (ParameterSyntax parameter in declarationSyntax.ParameterList.Parameters)
 				{
-					string parameterComment = CommentHelper.GetParameterComment(parameter.Identifier.ValueText);
-					list = list.AddRange(DocumentationCommentHelper.GetParameterPart(parameter.Identifier.ValueText, parameterComment));
+					string parameterComment = CommentHelper.CreateParameterComment(parameter.Identifier.ValueText);
+					list = list.AddRange(DocumentationHeaderHelper.CreateParameterPartNodes(parameter.Identifier.ValueText, parameterComment));
 				}
 			}
 			return SyntaxFactory.DocumentationCommentTrivia(SyntaxKind.SingleLineDocumentationCommentTrivia, list);

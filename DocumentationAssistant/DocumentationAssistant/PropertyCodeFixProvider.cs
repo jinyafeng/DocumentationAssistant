@@ -51,10 +51,14 @@ namespace DocumentationAssistant
 				isBoolean = ((PredefinedTypeSyntax)declarationSyntax.Type).Keyword.Kind() == SyntaxKind.BoolKeyword;
 			}
 
-			bool hasSetter = declarationSyntax.AccessorList.ChildNodes().Any(o => o.Kind() == SyntaxKind.SetAccessorDeclaration);
+			bool hasSetter = false;
+			if (declarationSyntax.AccessorList!=null && declarationSyntax.AccessorList.Accessors.Any(o => o.Kind() == SyntaxKind.SetAccessorDeclaration))
+			{
+				hasSetter = true;
+			}
 
-			string propertyComment = CommentHelper.GetPropertyComment(declarationSyntax.Identifier.ValueText, isBoolean, hasSetter);
-			DocumentationCommentTriviaSyntax commentTrivia = await Task.Run(() => DocumentationCommentHelper.GetOnlySummaryCommentTrivia(propertyComment), cancellationToken);
+			string propertyComment = CommentHelper.CreatePropertyComment(declarationSyntax.Identifier.ValueText, isBoolean, hasSetter);
+			DocumentationCommentTriviaSyntax commentTrivia = await Task.Run(() => DocumentationHeaderHelper.CreateOnlySummaryDocumentationCommentTrivia(propertyComment), cancellationToken);
 
 			SyntaxTriviaList newLeadingTrivia = leadingTrivia.Insert(leadingTrivia.Count - 1, SyntaxFactory.Trivia(commentTrivia));
 			PropertyDeclarationSyntax newDeclaration = declarationSyntax.WithLeadingTrivia(newLeadingTrivia);

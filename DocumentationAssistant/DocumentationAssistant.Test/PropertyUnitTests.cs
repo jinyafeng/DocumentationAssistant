@@ -118,6 +118,41 @@ namespace ConsoleApp4
 }";
 
 		/// <summary>
+		/// The expression body property test code.
+		/// </summary>
+		private const string ExpressionBodyPropertyTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+		public string PersonName => ""Person Name"";
+	}
+}";
+
+		/// <summary>
+		/// The expression body property test fix code.
+		/// </summary>
+		private const string ExpressionBodyPropertyTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+        /// <summary>
+        /// Gets the person name.
+        /// </summary>
+        public string PersonName => ""Person Name"";
+	}
+}";
+
+		/// <summary>
 		/// Nos diagnostics show.
 		/// </summary>
 		/// <param name="testCode">The test code.</param>
@@ -139,6 +174,7 @@ namespace ConsoleApp4
 		[DataRow(PropertyWithGetterSetterTestCode, PropertyWithGetterSetterTestFixCode, 10, 17)]
 		[DataRow(PropertyOnlyGetterTestCode, PropertyOnlyGetterTestFixCode, 10, 17)]
 		[DataRow(BooleanPropertyTestCode, BooleanPropertyTestFixCode, 10, 15)]
+		[DataRow(ExpressionBodyPropertyTestCode, ExpressionBodyPropertyTestFixCode, 10, 17)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
 			DiagnosticResult expected = new DiagnosticResult

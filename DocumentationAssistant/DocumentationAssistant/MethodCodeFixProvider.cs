@@ -44,7 +44,7 @@ namespace DocumentationAssistant
 		private async Task<Document> AddDocumentationHeaderAsync(Document document, SyntaxNode root, MethodDeclarationSyntax declarationSyntax, CancellationToken cancellationToken)
 		{
 			SyntaxTriviaList leadingTrivia = declarationSyntax.GetLeadingTrivia();
-			DocumentationCommentTriviaSyntax commentTrivia = await Task.Run(() => GetComments(declarationSyntax), cancellationToken);
+			DocumentationCommentTriviaSyntax commentTrivia = await Task.Run(() => CreateDocumentationCommentTriviaSyntax(declarationSyntax), cancellationToken);
 
 			SyntaxTriviaList newLeadingTrivia = leadingTrivia.Insert(leadingTrivia.Count - 1, SyntaxFactory.Trivia(commentTrivia));
 			MethodDeclarationSyntax newDeclaration = declarationSyntax.WithLeadingTrivia(newLeadingTrivia);
@@ -53,19 +53,19 @@ namespace DocumentationAssistant
 			return document.WithSyntaxRoot(newRoot);
 		}
 
-		private static DocumentationCommentTriviaSyntax GetComments(MethodDeclarationSyntax declarationSyntax)
+		private static DocumentationCommentTriviaSyntax CreateDocumentationCommentTriviaSyntax(MethodDeclarationSyntax declarationSyntax)
 		{
 			SyntaxList<SyntaxNode> list = SyntaxFactory.List<SyntaxNode>();
 
-			string methodComment = CommentHelper.GetMethodComment(declarationSyntax.Identifier.ValueText);
-			list = list.AddRange(DocumentationCommentHelper.GetSummaryPart(methodComment));
+			string methodComment = CommentHelper.CreateMethodComment(declarationSyntax.Identifier.ValueText);
+			list = list.AddRange(DocumentationHeaderHelper.CreateSummaryPartNodes(methodComment));
 
 			if (declarationSyntax.ParameterList.Parameters.Any())
 			{
 				foreach (ParameterSyntax parameter in declarationSyntax.ParameterList.Parameters)
 				{
-					string parameterComment = CommentHelper.GetParameterComment(parameter.Identifier.ValueText);
-					list = list.AddRange(DocumentationCommentHelper.GetParameterPart(parameter.Identifier.ValueText, parameterComment));
+					string parameterComment = CommentHelper.CreateParameterComment(parameter.Identifier.ValueText);
+					list = list.AddRange(DocumentationHeaderHelper.CreateParameterPartNodes(parameter.Identifier.ValueText, parameterComment));
 				}
 			}
 
@@ -73,7 +73,7 @@ namespace DocumentationAssistant
 			if (returnType != "void")
 			{
 				string returnComment = new ReturnCommentConstruction(declarationSyntax.ReturnType).Comment;
-				list = list.AddRange(DocumentationCommentHelper.GetReturnPart(returnComment));
+				list = list.AddRange(DocumentationHeaderHelper.CreateReturnPartNodes(returnComment));
 			}
 
 			return SyntaxFactory.DocumentationCommentTrivia(SyntaxKind.SingleLineDocumentationCommentTrivia, list);
