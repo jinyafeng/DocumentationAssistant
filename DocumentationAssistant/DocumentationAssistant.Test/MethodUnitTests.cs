@@ -43,7 +43,7 @@ namespace ConsoleApp4
 	public class MethodTester
 	{
         /// <summary>
-        /// Shows basic method tester.
+        /// Shows the basic method tester.
         /// </summary>
         public void ShowBasicMethodTester()
 		{
@@ -81,7 +81,7 @@ namespace ConsoleApp4
 	public class MethodTester
 	{
         /// <summary>
-        /// Shows method with parameter tester.
+        /// Shows the method with parameter tester.
         /// </summary>
         /// <param name=""param1"">The param1.</param>
         /// <param name=""param2"">The param2.</param>
@@ -124,7 +124,7 @@ namespace ConsoleApp4
 	public class MethodTester
 	{
         /// <summary>
-        /// Shows method with return tester.
+        /// Shows the method with return tester.
         /// </summary>
         /// <returns>A MethodTester.</returns>
         public MethodTester ShowMethodWithReturnTester()
@@ -142,7 +142,7 @@ namespace ConsoleApp4
 		[DataRow("")]
 		public void NoDiagnosticsShow(string testCode)
 		{
-			VerifyCSharpDiagnostic(testCode);
+			this.VerifyCSharpDiagnostic(testCode);
 		}
 
 		/// <summary>
@@ -169,9 +169,9 @@ namespace ConsoleApp4
 						}
 			};
 
-			VerifyCSharpDiagnostic(testCode, expected);
+			this.VerifyCSharpDiagnostic(testCode, expected);
 
-			VerifyCSharpFix(testCode, fixCode);
+			this.VerifyCSharpFix(testCode, fixCode);
 		}
 
 		/// <summary>

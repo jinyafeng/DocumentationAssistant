@@ -81,6 +81,7 @@ namespace DocumentationAssistant.Helper
 		{
 			List<string> parts = SpilitNameAndToLower(name, false);
 			parts[0] = Pluralizer.Pluralize(parts[0]);
+			parts.Insert(1, "the");
 			return string.Join(" ", parts) + ".";
 		}
 
