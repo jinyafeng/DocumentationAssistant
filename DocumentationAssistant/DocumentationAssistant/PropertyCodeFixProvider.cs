@@ -72,9 +72,14 @@ namespace DocumentationAssistant
 			SyntaxTriviaList leadingTrivia = declarationSyntax.GetLeadingTrivia();
 
 			bool isBoolean = false;
-			if (declarationSyntax.Type is PredefinedTypeSyntax)
+			if (declarationSyntax.Type.IsKind(SyntaxKind.PredefinedType))
 			{
 				isBoolean = ((PredefinedTypeSyntax)declarationSyntax.Type).Keyword.Kind() == SyntaxKind.BoolKeyword;
+			}
+			else if (declarationSyntax.Type.IsKind(SyntaxKind.NullableType))
+			{
+				var retrunType = ((NullableTypeSyntax)declarationSyntax.Type).ElementType as PredefinedTypeSyntax;
+				isBoolean = retrunType?.Keyword.Kind() == SyntaxKind.BoolKeyword;
 			}
 
 			bool hasSetter = false;

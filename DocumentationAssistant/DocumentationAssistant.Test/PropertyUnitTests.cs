@@ -83,7 +83,7 @@ namespace ConsoleApp4
 }";
 
 		/// <summary>
-		/// The property only getter test fix code.
+		/// The property private getter test fix code.
 		/// </summary>
 		private const string PropertyPrivateGetterTestCode = @"
 using System;
@@ -99,7 +99,7 @@ namespace ConsoleApp4
 }";
 
 		/// <summary>
-		/// The property only getter test fix code.
+		/// The property private getter test fix code.
 		/// </summary>
 		private const string PropertyPrivateGetterTestFixCode = @"
 using System;
@@ -118,7 +118,7 @@ namespace ConsoleApp4
 }";
 
 		/// <summary>
-		/// The property only getter test fix code.
+		/// The property internal getter test fix code.
 		/// </summary>
 		private const string PropertyInternalGetterTestCode = @"
 using System;
@@ -134,7 +134,7 @@ namespace ConsoleApp4
 }";
 
 		/// <summary>
-		/// The property only getter test fix code.
+		/// The property internal getter test fix code.
 		/// </summary>
 		private const string PropertyInternalGetterTestFixCode = @"
 using System;
@@ -184,6 +184,41 @@ namespace ConsoleApp4
         /// Gets or sets a value indicating whether tester is started.
         /// </summary>
         public bool IsTesterStarted { get; set; }
+	}
+}";
+
+		/// <summary>
+		/// The nullable boolean property test code.
+		/// </summary>
+		private const string NullableBooleanPropertyTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+		public bool? IsTesterStarted { get; set; }
+	}
+}";
+
+		/// <summary>
+		/// The nullable boolean property test fix code.
+		/// </summary>
+		private const string NullableBooleanPropertyTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+        /// <summary>
+        /// Gets or sets a value indicating whether tester is started.
+        /// </summary>
+        public bool? IsTesterStarted { get; set; }
 	}
 }";
 
@@ -246,6 +281,7 @@ namespace ConsoleApp4
 		[DataRow(PropertyPrivateGetterTestCode, PropertyPrivateGetterTestFixCode, 10, 23)]
 		[DataRow(PropertyInternalGetterTestCode, PropertyInternalGetterTestFixCode, 10, 23)]
 		[DataRow(BooleanPropertyTestCode, BooleanPropertyTestFixCode, 10, 15)]
+		[DataRow(NullableBooleanPropertyTestCode, NullableBooleanPropertyTestFixCode, 10, 16)]
 		[DataRow(ExpressionBodyPropertyTestCode, ExpressionBodyPropertyTestFixCode, 10, 17)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
