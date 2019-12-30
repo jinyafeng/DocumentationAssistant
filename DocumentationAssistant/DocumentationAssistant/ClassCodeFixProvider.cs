@@ -1,14 +1,14 @@
-﻿using System.Collections.Immutable;
-using System.Composition;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using DocumentationAssistant.Helper;
+﻿using DocumentationAssistant.Helper;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Collections.Immutable;
+using System.Composition;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DocumentationAssistant
 {
@@ -21,7 +21,7 @@ namespace DocumentationAssistant
 		/// <summary>
 		/// The title.
 		/// </summary>
-		private const string title = "Add documentation header to this class.";
+		private const string title = "Add documentation header to this class";
 
 		/// <summary>
 		/// Gets the fixable diagnostic ids.
@@ -54,7 +54,7 @@ namespace DocumentationAssistant
 			context.RegisterCodeFix(
 				CodeAction.Create(
 					title: title,
-					createChangedDocument: c => AddDocumentationHeaderAsync(context.Document, root, declaration, c),
+					createChangedDocument: c => this.AddDocumentationHeaderAsync(context.Document, root, declaration, c),
 					equivalenceKey: title),
 				diagnostic);
 		}
