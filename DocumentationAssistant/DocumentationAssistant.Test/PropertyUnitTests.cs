@@ -83,6 +83,76 @@ namespace ConsoleApp4
 }";
 
 		/// <summary>
+		/// The property only getter test fix code.
+		/// </summary>
+		private const string PropertyPrivateGetterTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+        public string PersonName { get; private set; }
+	}
+}";
+
+		/// <summary>
+		/// The property only getter test fix code.
+		/// </summary>
+		private const string PropertyPrivateGetterTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+        /// <summary>
+        /// Gets the person name.
+        /// </summary>
+        public string PersonName { get; private set; }
+	}
+}";
+
+		/// <summary>
+		/// The property only getter test fix code.
+		/// </summary>
+		private const string PropertyInternalGetterTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+        public string PersonName { get; internal set; }
+	}
+}";
+
+		/// <summary>
+		/// The property only getter test fix code.
+		/// </summary>
+		private const string PropertyInternalGetterTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+        /// <summary>
+        /// Gets the person name.
+        /// </summary>
+        public string PersonName { get; internal set; }
+	}
+}";
+
+		/// <summary>
 		/// The boolean property test code.
 		/// </summary>
 		private const string BooleanPropertyTestCode = @"
@@ -173,6 +243,8 @@ namespace ConsoleApp4
 		[DataTestMethod]
 		[DataRow(PropertyWithGetterSetterTestCode, PropertyWithGetterSetterTestFixCode, 10, 17)]
 		[DataRow(PropertyOnlyGetterTestCode, PropertyOnlyGetterTestFixCode, 10, 17)]
+		[DataRow(PropertyPrivateGetterTestCode, PropertyPrivateGetterTestFixCode, 10, 23)]
+		[DataRow(PropertyInternalGetterTestCode, PropertyInternalGetterTestFixCode, 10, 23)]
 		[DataRow(BooleanPropertyTestCode, BooleanPropertyTestFixCode, 10, 15)]
 		[DataRow(ExpressionBodyPropertyTestCode, ExpressionBodyPropertyTestFixCode, 10, 17)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)

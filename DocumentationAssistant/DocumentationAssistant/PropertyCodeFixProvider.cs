@@ -78,9 +78,18 @@ namespace DocumentationAssistant
 			}
 
 			bool hasSetter = false;
+
 			if (declarationSyntax.AccessorList != null && declarationSyntax.AccessorList.Accessors.Any(o => o.Kind() == SyntaxKind.SetAccessorDeclaration))
 			{
-				hasSetter = true;
+				if (declarationSyntax.AccessorList.Accessors.First(o => o.Kind() == SyntaxKind.SetAccessorDeclaration).ChildTokens().Any(o => o.Kind() == SyntaxKind.PrivateKeyword || o.Kind() == SyntaxKind.InternalKeyword))
+				{
+					// private set or internal set should consider as no set.
+					hasSetter = false;
+				}
+				else
+				{
+					hasSetter = true;
+				}
 			}
 
 			string propertyComment = CommentHelper.CreatePropertyComment(declarationSyntax.Identifier.ValueText, isBoolean, hasSetter);
