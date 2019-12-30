@@ -98,7 +98,7 @@ namespace ConsoleApp4
 		[DataRow("")]
 		public void NoDiagnosticsShow(string testCode)
 		{
-			VerifyCSharpDiagnostic(testCode);
+			this.VerifyCSharpDiagnostic(testCode);
 		}
 
 		/// <summary>
@@ -113,7 +113,7 @@ namespace ConsoleApp4
 		[DataRow(PrivateConstructorTestCode, PrivateContructorTestFixCode, 10, 11)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
-			DiagnosticResult expected = new DiagnosticResult
+			var expected = new DiagnosticResult
 			{
 				Id = ConstructorAnalyzer.DiagnosticId,
 				Message = ConstructorAnalyzer.MessageFormat,
@@ -124,9 +124,9 @@ namespace ConsoleApp4
 						}
 			};
 
-			VerifyCSharpDiagnostic(testCode, expected);
+			this.VerifyCSharpDiagnostic(testCode, expected);
 
-			VerifyCSharpFix(testCode, fixCode);
+			this.VerifyCSharpFix(testCode, fixCode);
 		}
 
 		/// <summary>
