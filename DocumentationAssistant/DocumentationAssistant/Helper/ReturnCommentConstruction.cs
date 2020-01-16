@@ -130,22 +130,24 @@ namespace DocumentationAssistant.Helper
 		/// <returns>The comment.</returns>
 		private static string DetermineSpecificObjectName(TypeSyntax specificType)
 		{
+			string result = null;
 			if (specificType is IdentifierNameSyntax)
 			{
-				return Pluralizer.Pluralize(((IdentifierNameSyntax)specificType).Identifier.ValueText) + ".";
+				result = Pluralizer.Pluralize(((IdentifierNameSyntax)specificType).Identifier.ValueText);
 			}
 			else if (specificType is PredefinedTypeSyntax)
 			{
-				return (specificType as PredefinedTypeSyntax).Keyword.ValueText + ".";
+				result = (specificType as PredefinedTypeSyntax).Keyword.ValueText;
 			}
 			else if (specificType is GenericNameSyntax)
 			{
-				return (specificType as GenericNameSyntax).Identifier.ValueText;
+				result = (specificType as GenericNameSyntax).Identifier.ValueText;
 			}
 			else
 			{
-				return specificType.ToFullString();
+				result = specificType.ToFullString();
 			}
+			return result + ".";
 		}
 
 		/// <summary>

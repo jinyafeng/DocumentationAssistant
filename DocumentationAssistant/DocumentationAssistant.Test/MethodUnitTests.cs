@@ -343,6 +343,90 @@ namespace ConsoleApp4
 }";
 
 		/// <summary>
+		/// The method with list list int return test code.
+		/// </summary>
+		private const string MethodWithListListIntReturnTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+		public List<List<int>> ShowMethodWithListListIntReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with list list int return test fix code.
+		/// </summary>
+		private const string MethodWithListListIntReturnTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with list list int return tester.
+        /// </summary>
+        /// <returns>A list of List.</returns>
+        public List<List<int>> ShowMethodWithListListIntReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with list qualified name return test code.
+		/// </summary>
+		private const string MethodWithListQualifiedNameReturnTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+		public List<A.B> ShowMethodWithListQualifiedNameReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with list qualified name return test fix code.
+		/// </summary>
+		private const string MethodWithListQualifiedNameReturnTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with list qualified name return tester.
+        /// </summary>
+        /// <returns>A list of A.B.</returns>
+        public List<A.B> ShowMethodWithListQualifiedNameReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
 		/// Nos diagnostics show.
 		/// </summary>
 		/// <param name="testCode">The test code.</param>
@@ -369,6 +453,8 @@ namespace ConsoleApp4
 		[DataRow(MethodWithObjectReturnTestCode, MethodWithObjectReturnTestFixCode, 10, 17)]
 		[DataRow(MethodWithIntReturnTestCode, MethodWithIntReturnTestFixCode, 10, 14)]
 		[DataRow(MethodWithListIntReturnTestCode, MethodWithListIntReturnTestFixCode, 10, 20)]
+		[DataRow(MethodWithListListIntReturnTestCode, MethodWithListListIntReturnTestFixCode, 10, 26)]
+		[DataRow(MethodWithListQualifiedNameReturnTestCode, MethodWithListQualifiedNameReturnTestFixCode, 10, 20)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
 			var expected = new DiagnosticResult
