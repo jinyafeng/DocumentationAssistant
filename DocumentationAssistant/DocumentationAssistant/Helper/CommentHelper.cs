@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DocumentationAssistant.Helper
@@ -90,9 +93,27 @@ namespace DocumentationAssistant.Helper
 		/// </summary>
 		/// <param name="name">The name.</param>
 		/// <returns>The parameter comment.</returns>
-		public static string CreateParameterComment(string name)
+		public static string CreateParameterComment(ParameterSyntax parameter)
 		{
-			return CreateCommonComment(name);
+			bool isBoolean = false;
+			if (parameter.Type.IsKind(SyntaxKind.PredefinedType))
+			{
+				isBoolean = (parameter.Type as PredefinedTypeSyntax).Keyword.IsKind(SyntaxKind.BoolKeyword);
+			}
+			else if (parameter.Type.IsKind(SyntaxKind.NullableType))
+			{
+				var type = (parameter.Type as NullableTypeSyntax).ElementType as PredefinedTypeSyntax;
+				isBoolean = type.Keyword.IsKind(SyntaxKind.BoolKeyword);
+			}
+
+			if (isBoolean)
+			{
+				return "If true, " + string.Join(" ", SpilitNameAndToLower(parameter.Identifier.ValueText, true)) + ".";
+			}
+			else
+			{
+				return CreateCommonComment(parameter.Identifier.ValueText);
+			}
 		}
 
 		/// <summary>
@@ -104,7 +125,7 @@ namespace DocumentationAssistant.Helper
 		{
 			string booleanPart = " a value indicating whether ";
 
-			List<string> parts = SpilitNameAndToLower(name, true).ToList();
+			var parts = SpilitNameAndToLower(name, true).ToList();
 
 			string isWord = parts.FirstOrDefault(o => o == "is");
 			if (isWord != null)

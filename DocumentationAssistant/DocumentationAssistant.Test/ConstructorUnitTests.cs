@@ -91,6 +91,46 @@ namespace ConsoleApp4
 }";
 
 		/// <summary>
+		/// The public constructor test code.
+		/// </summary>
+		private const string PublicConstructorWithBooleanParameterTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	class ConstructorTester
+	{
+		public ConstructorTester(bool isRed, bool? isAssociatedWithAllProduct)
+		{
+		}
+	}
+}";
+
+		/// <summary>
+		/// The public contructor test fix code.
+		/// </summary>
+		private const string PublicContructorWithBooleanParameterTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	class ConstructorTester
+	{
+        /// <summary>
+        /// Initializes a new instance of the <see cref=""ConstructorTester""/> class.
+        /// </summary>
+        /// <param name=""isRed"">If true, is red.</param>
+        /// <param name=""isAssociatedWithAllProduct"">If true, is associated with all product.</param>
+        public ConstructorTester(bool isRed, bool? isAssociatedWithAllProduct)
+		{
+		}
+	}
+}";
+		/// <summary>
 		/// Nos diagnostics show.
 		/// </summary>
 		/// <param name="testCode">The test code.</param>
@@ -111,6 +151,7 @@ namespace ConsoleApp4
 		[DataTestMethod]
 		[DataRow(PublicConstructorTestCode, PublicContructorTestFixCode, 10, 10)]
 		[DataRow(PrivateConstructorTestCode, PrivateContructorTestFixCode, 10, 11)]
+		[DataRow(PublicConstructorWithBooleanParameterTestCode, PublicContructorWithBooleanParameterTestFixCode, 10, 10)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
 			var expected = new DiagnosticResult

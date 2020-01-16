@@ -85,8 +85,48 @@ namespace ConsoleApp4
         /// </summary>
         /// <param name=""param1"">The param1.</param>
         /// <param name=""param2"">The param2.</param>
-        /// <param name=""param3"">The param3.</param>
+        /// <param name=""param3"">If true, param3.</param>
         public void ShowMethodWithParameterTester(string param1, int param2, bool param3)
+		{
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with parameter test code.
+		/// </summary>
+		private const string MethodWithBooleanParameterTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+		public void ShowMethodWithBooleanParameterTester(bool isRed, bool? isAssociatedWithAllProduct)
+		{
+		}
+	}
+}";
+		/// <summary>
+		/// The method with parameter test fix code.
+		/// </summary>
+		private const string MethodWithBooleanParameterTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with boolean parameter tester.
+        /// </summary>
+        /// <param name=""isRed"">If true, is red.</param>
+        /// <param name=""isAssociatedWithAllProduct"">If true, is associated with all product.</param>
+        public void ShowMethodWithBooleanParameterTester(bool isRed, bool? isAssociatedWithAllProduct)
 		{
 		}
 	}
@@ -155,10 +195,11 @@ namespace ConsoleApp4
 		[DataTestMethod]
 		[DataRow(BasicTestCode, BasicTestFixCode, 10, 15)]
 		[DataRow(MethodWithParameterTestCode, MethodWithParameterTestFixCode, 10, 15)]
+		[DataRow(MethodWithBooleanParameterTestCode, MethodWithBooleanParameterTestFixCode, 10, 15)]
 		[DataRow(MethodWithReturnTestCode, MethodWithReturnTestFixCode, 10, 23)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
-			DiagnosticResult expected = new DiagnosticResult
+			var expected = new DiagnosticResult
 			{
 				Id = MethodAnalyzer.DiagnosticId,
 				Message = MethodAnalyzer.MessageFormat,

@@ -100,7 +100,7 @@ namespace DocumentationAssistant
 			{
 				foreach (ParameterSyntax parameter in declarationSyntax.ParameterList.Parameters)
 				{
-					string parameterComment = CommentHelper.CreateParameterComment(parameter.Identifier.ValueText);
+					string parameterComment = CommentHelper.CreateParameterComment(parameter);
 					list = list.AddRange(DocumentationHeaderHelper.CreateParameterPartNodes(parameter.Identifier.ValueText, parameterComment));
 				}
 			}
