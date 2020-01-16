@@ -175,6 +175,174 @@ namespace ConsoleApp4
 }";
 
 		/// <summary>
+		/// The method with string return test code.
+		/// </summary>
+		private const string MethodWithStringReturnTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+		public string ShowMethodWithStringReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with string return test fix code.
+		/// </summary>
+		private const string MethodWithStringReturnTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with string return tester.
+        /// </summary>
+        /// <returns>A string.</returns>
+        public string ShowMethodWithStringReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with object return test code.
+		/// </summary>
+		private const string MethodWithObjectReturnTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+		public object ShowMethodWithObjectReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with object return test fix code.
+		/// </summary>
+		private const string MethodWithObjectReturnTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with object return tester.
+        /// </summary>
+        /// <returns>An object.</returns>
+        public object ShowMethodWithObjectReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with int return test code.
+		/// </summary>
+		private const string MethodWithIntReturnTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+		public int ShowMethodWithIntReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with int return test fix code.
+		/// </summary>
+		private const string MethodWithIntReturnTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with int return tester.
+        /// </summary>
+        /// <returns>An int.</returns>
+        public int ShowMethodWithIntReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with list int return test code.
+		/// </summary>
+		private const string MethodWithListIntReturnTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+		public List<int> ShowMethodWithListIntReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with list int return test fix code.
+		/// </summary>
+		private const string MethodWithListIntReturnTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with list int return tester.
+        /// </summary>
+        /// <returns>A list of int.</returns>
+        public List<int> ShowMethodWithListIntReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+		/// <summary>
 		/// Nos diagnostics show.
 		/// </summary>
 		/// <param name="testCode">The test code.</param>
@@ -197,6 +365,10 @@ namespace ConsoleApp4
 		[DataRow(MethodWithParameterTestCode, MethodWithParameterTestFixCode, 10, 15)]
 		[DataRow(MethodWithBooleanParameterTestCode, MethodWithBooleanParameterTestFixCode, 10, 15)]
 		[DataRow(MethodWithReturnTestCode, MethodWithReturnTestFixCode, 10, 23)]
+		[DataRow(MethodWithStringReturnTestCode, MethodWithStringReturnTestFixCode, 10, 17)]
+		[DataRow(MethodWithObjectReturnTestCode, MethodWithObjectReturnTestFixCode, 10, 17)]
+		[DataRow(MethodWithIntReturnTestCode, MethodWithIntReturnTestFixCode, 10, 14)]
+		[DataRow(MethodWithListIntReturnTestCode, MethodWithListIntReturnTestFixCode, 10, 20)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
 			var expected = new DiagnosticResult

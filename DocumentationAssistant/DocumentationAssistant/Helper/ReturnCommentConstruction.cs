@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Collections.Generic;
 
 namespace DocumentationAssistant.Helper
 {
@@ -16,27 +16,27 @@ namespace DocumentationAssistant.Helper
 		{
 			if (returnType is PredefinedTypeSyntax)
 			{
-				Comment = GeneratePrefinedTypeComment(returnType as PredefinedTypeSyntax);
+				this.Comment = GeneratePredefinedTypeComment(returnType as PredefinedTypeSyntax);
 			}
 			else if (returnType is IdentifierNameSyntax)
 			{
-				Comment = GenerateIdentifierNameTypeComment(returnType as IdentifierNameSyntax);
+				this.Comment = GenerateIdentifierNameTypeComment(returnType as IdentifierNameSyntax);
 			}
 			else if (returnType is QualifiedNameSyntax)
 			{
-				Comment = GenerateQualifiedNameTypeComment(returnType as QualifiedNameSyntax);
+				this.Comment = GenerateQualifiedNameTypeComment(returnType as QualifiedNameSyntax);
 			}
 			else if (returnType is GenericNameSyntax)
 			{
-				Comment = GenerateGenericTypeComment(returnType as GenericNameSyntax);
+				this.Comment = GenerateGenericTypeComment(returnType as GenericNameSyntax);
 			}
 			else if (returnType is ArrayTypeSyntax)
 			{
-				Comment = GenerateArrayTypeComment(returnType as ArrayTypeSyntax);
+				this.Comment = this.GenerateArrayTypeComment(returnType as ArrayTypeSyntax);
 			}
 			else
 			{
-				Comment = GenerateGeneralComment(returnType.ToFullString());
+				this.Comment = GenerateGeneralComment(returnType.ToFullString());
 			}
 		}
 
@@ -46,14 +46,13 @@ namespace DocumentationAssistant.Helper
 		public string Comment { get; }
 
 		/// <summary>
-		/// Generates prefined type comment.
+		/// Generates predefined type comment.
 		/// </summary>
 		/// <param name="returnType">The return type.</param>
 		/// <returns>The comment.</returns>
-		private static string GeneratePrefinedTypeComment(PredefinedTypeSyntax returnType)
+		private static string GeneratePredefinedTypeComment(PredefinedTypeSyntax returnType)
 		{
-			// xxx will remind user to give it a specific name.
-			return "The xxx.";
+			return DetermineStartedWord(returnType.Keyword.ValueText) + " " + returnType.Keyword.ValueText + ".";
 		}
 
 		/// <summary>
@@ -135,10 +134,17 @@ namespace DocumentationAssistant.Helper
 			{
 				return Pluralizer.Pluralize(((IdentifierNameSyntax)specificType).Identifier.ValueText) + ".";
 			}
+			else if (specificType is PredefinedTypeSyntax)
+			{
+				return (specificType as PredefinedTypeSyntax).Keyword.ValueText + ".";
+			}
+			else if (specificType is GenericNameSyntax)
+			{
+				return (specificType as GenericNameSyntax).Identifier.ValueText;
+			}
 			else
 			{
-				// xxx will remind user to give it a specific name.
-				return "xxx";
+				return specificType.ToFullString();
 			}
 		}
 
@@ -149,7 +155,7 @@ namespace DocumentationAssistant.Helper
 		/// <returns>The comment.</returns>
 		private static string DetermineStartedWord(string returnType)
 		{
-			List<char> vowelChars = new List<char>() { 'a', 'e', 'i', 'o', 'u' };
+			var vowelChars = new List<char>() { 'a', 'e', 'i', 'o', 'u' };
 			if (vowelChars.Contains(char.ToLower(returnType[0])))
 			{
 				return "An";
