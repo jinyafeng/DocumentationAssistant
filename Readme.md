@@ -18,6 +18,6 @@ You can use shortcut(Alt+Enter or Ctrl+.) to quickly add the documentation.
 ![](https://github.com/jinyafeng/DocumentationAssistant/blob/master/GifInstruction/short%20cut%20to%20quick%20add.gif)
 
 ----------------------------------------------------------------------------------------------------------
-It can help your generate general documetation according to the member identifier.  
+It can help you generate general documetation according to the member identifier.  
 Please add **additional information** if you think it is not good.  
 Hope it can save your time and more focus on code.  
