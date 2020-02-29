@@ -20,4 +20,4 @@ You can use shortcut(Alt+Enter or Ctrl+.) to quickly add the documentation.
 ----------------------------------------------------------------------------------------------------------
 It can help you generate general documentation according to the member identifier.  
 Please add **additional information** if you think it is not good.  
-Hope it can save your time and more focus on code.  
+Hope it can save your time and make you more focus on code.  
