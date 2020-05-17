@@ -117,6 +117,26 @@ namespace DocumentationAssistant.Helper
 		}
 
 		/// <summary>
+		/// Have the comment.
+		/// </summary>
+		/// <param name="commentTriviaSyntax">The comment trivia syntax.</param>
+		/// <returns>A bool.</returns>
+		public static bool HasComment(DocumentationCommentTriviaSyntax commentTriviaSyntax)
+		{
+			bool hasSummary = commentTriviaSyntax
+				.ChildNodes()
+				.OfType<XmlElementSyntax>()
+				.Any(o => o.StartTag.Name.ToString().Equals(DocumentationHeaderHelper.Summary));
+
+			bool hasInheritDoc = commentTriviaSyntax
+				.ChildNodes()
+				.OfType<XmlEmptyElementSyntax>()
+				.Any(o => o.Name.ToString().Equals(DocumentationHeaderHelper.InheritDoc));
+
+			return hasSummary ||hasInheritDoc;
+		}
+
+		/// <summary>
 		/// Creates property boolean part.
 		/// </summary>
 		/// <param name="name">The name.</param>

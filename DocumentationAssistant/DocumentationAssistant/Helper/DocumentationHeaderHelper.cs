@@ -21,6 +21,11 @@ namespace DocumentationAssistant.Helper
 		public const string Summary = "summary";
 
 		/// <summary>
+		/// The inherit doc.
+		/// </summary>
+		public const string InheritDoc = "inheritdoc";
+
+		/// <summary>
 		/// Creates only summary documentation comment trivia.
 		/// </summary>
 		/// <param name="content">The content.</param>

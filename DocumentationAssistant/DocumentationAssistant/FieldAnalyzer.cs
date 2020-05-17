@@ -73,17 +73,9 @@ namespace DocumentationAssistant
 				.OfType<DocumentationCommentTriviaSyntax>()
 				.FirstOrDefault();
 
-			if (commentTriviaSyntax != null)
+			if (commentTriviaSyntax != null && CommentHelper.HasComment(commentTriviaSyntax))
 			{
-				bool hasSummary = commentTriviaSyntax
-					.ChildNodes()
-					.OfType<XmlElementSyntax>()
-					.Any(o => o.StartTag.Name.ToString().Equals(DocumentationHeaderHelper.Summary));
-
-				if (hasSummary)
-				{
-					return;
-				}
+				return;
 			}
 
 			VariableDeclaratorSyntax field = node.DescendantNodes().OfType<VariableDeclaratorSyntax>().First();
