@@ -13,6 +13,23 @@ namespace DocumentationAssistant.Test
 	public class PropertyUnitTest : CodeFixVerifier
 	{
 		/// <summary>
+		/// The inherit doc test code.
+		/// </summary>
+		private const string InheritDocTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class PropertyTester
+	{
+		/// <inheritdoc/>
+		public string PersonName { get; set; }
+	}
+}";
+
+		/// <summary>
 		/// The property with getter setter test code.
 		/// </summary>
 		private const string PropertyWithGetterSetterTestCode = @"
@@ -263,6 +280,7 @@ namespace ConsoleApp4
 		/// <param name="testCode">The test code.</param>
 		[DataTestMethod]
 		[DataRow("")]
+		[DataRow(InheritDocTestCode)]
 		public void NoDiagnosticsShow(string testCode)
 		{
 			this.VerifyCSharpDiagnostic(testCode);

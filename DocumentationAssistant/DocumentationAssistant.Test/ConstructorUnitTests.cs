@@ -13,6 +13,25 @@ namespace DocumentationAssistant.Test
 	public class ConstrcutorUnitTest : CodeFixVerifier
 	{
 		/// <summary>
+		/// The inherit doc test code.
+		/// </summary>
+		private const string InheritDocTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	class ConstructorTester
+	{
+		/// <inheritdoc/>
+		public ConstructorTester()
+		{
+		}
+	}
+}";
+
+		/// <summary>
 		/// The public constructor test code.
 		/// </summary>
 		private const string PublicConstructorTestCode = @"
@@ -136,6 +155,7 @@ namespace ConsoleApp4
 		/// <param name="testCode">The test code.</param>
 		[DataTestMethod]
 		[DataRow("")]
+		[DataRow(InheritDocTestCode)]
 		public void NoDiagnosticsShow(string testCode)
 		{
 			this.VerifyCSharpDiagnostic(testCode);
