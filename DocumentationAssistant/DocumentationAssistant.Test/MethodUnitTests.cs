@@ -152,6 +152,48 @@ namespace ConsoleApp4
 }";
 
 		/// <summary>
+		/// The method with parameter test code.
+		/// </summary>
+		private const string MethodWithNullableStructParameterTestCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+		public void Show(DiagnosticResult? param1, int param2, bool param3)
+		{
+		}
+	}
+}";
+
+		/// <summary>
+		/// The method with parameter test fix code.
+		/// </summary>
+		private const string MethodWithNullableStructParameterTestFixCode = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with parameter tester.
+        /// </summary>
+        /// <param name=""param1"">The param1.</param>
+        /// <param name=""param2"">The param2.</param>
+        /// <param name=""param3"">If true, param3.</param>
+        public void Show(DiagnosticResult? param1, int param2, bool param3)
+		{
+		}
+	}
+}";
+
+		/// <summary>
 		/// The method with return test code.
 		/// </summary>
 		private const string MethodWithReturnTestCode = @"
@@ -468,6 +510,7 @@ namespace ConsoleApp4
 		[DataRow(BasicTestCode, BasicTestFixCode, 10, 15)]
 		[DataRow(MethodWithParameterTestCode, MethodWithParameterTestFixCode, 10, 15)]
 		[DataRow(MethodWithBooleanParameterTestCode, MethodWithBooleanParameterTestFixCode, 10, 15)]
+		[DataRow(MethodWithNullableStructParameterTestCode, MethodWithNullableStructParameterTestFixCode, 10, 15)]
 		[DataRow(MethodWithReturnTestCode, MethodWithReturnTestFixCode, 10, 23)]
 		[DataRow(MethodWithStringReturnTestCode, MethodWithStringReturnTestFixCode, 10, 17)]
 		[DataRow(MethodWithObjectReturnTestCode, MethodWithObjectReturnTestFixCode, 10, 17)]

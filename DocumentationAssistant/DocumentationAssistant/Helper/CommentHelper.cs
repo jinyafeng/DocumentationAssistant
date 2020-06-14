@@ -103,7 +103,14 @@ namespace DocumentationAssistant.Helper
 			else if (parameter.Type.IsKind(SyntaxKind.NullableType))
 			{
 				var type = (parameter.Type as NullableTypeSyntax).ElementType as PredefinedTypeSyntax;
-				isBoolean = type.Keyword.IsKind(SyntaxKind.BoolKeyword);
+
+				// If it is not predefined type syntax, it should be IdentifierNameSyntax.
+				var x =parameter.Type as IdentifierNameSyntax;
+				
+				if (type != null)
+				{
+					isBoolean = type.Keyword.IsKind(SyntaxKind.BoolKeyword);
+				}
 			}
 
 			if (isBoolean)
@@ -133,7 +140,7 @@ namespace DocumentationAssistant.Helper
 				.OfType<XmlEmptyElementSyntax>()
 				.Any(o => o.Name.ToString().Equals(DocumentationHeaderHelper.InheritDoc));
 
-			return hasSummary ||hasInheritDoc;
+			return hasSummary || hasInheritDoc;
 		}
 
 		/// <summary>
