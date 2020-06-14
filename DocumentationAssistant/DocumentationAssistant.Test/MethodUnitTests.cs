@@ -182,7 +182,7 @@ namespace ConsoleApp4
 	public class MethodTester
 	{
         /// <summary>
-        /// Shows the method with parameter tester.
+        /// Shows the.
         /// </summary>
         /// <param name=""param1"">The param1.</param>
         /// <param name=""param2"">The param2.</param>

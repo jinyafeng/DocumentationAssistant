@@ -105,8 +105,6 @@ namespace DocumentationAssistant.Helper
 				var type = (parameter.Type as NullableTypeSyntax).ElementType as PredefinedTypeSyntax;
 
 				// If it is not predefined type syntax, it should be IdentifierNameSyntax.
-				var x =parameter.Type as IdentifierNameSyntax;
-				
 				if (type != null)
 				{
 					isBoolean = type.Keyword.IsKind(SyntaxKind.BoolKeyword);
