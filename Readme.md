@@ -5,6 +5,8 @@ It support Visual Studio 2017 & Visual Studio 2019 any editions.
 You can download vsix file from [VS marketplace](https://marketplace.visualstudio.com/items?itemName=jinyafeng.DocumentationAssistant).
 
 ----------------------------------------------------------------------------------------------------------
+# Notes
+If your project only need to document public members. Please use this same product but only enabled to public members. Please click here [VsMarketplace](https://marketplace.visualstudio.com/items?itemName=jinyafeng.DocumentationAssistantPublicMembersOnly). **If you already installed this product, please uninstall it firstly.**
 
 # Instructions
 After you installed it to your Visual Studio.  
