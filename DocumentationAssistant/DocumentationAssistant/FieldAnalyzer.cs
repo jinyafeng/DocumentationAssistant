@@ -61,7 +61,12 @@ namespace DocumentationAssistant
 		{
 			FieldDeclarationSyntax node = context.Node as FieldDeclarationSyntax;
 
-			// Only const.
+			if (Configuration.isEnabledForPublishMembersOnly && !node.Modifiers.Any(SyntaxKind.PublicKeyword))
+			{
+				return;
+			}
+
+			// Only const field.
 			if (!node.Modifiers.Any(SyntaxKind.ConstKeyword))
 			{
 				return;

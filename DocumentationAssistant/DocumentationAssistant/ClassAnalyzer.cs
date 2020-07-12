@@ -61,6 +61,11 @@ namespace DocumentationAssistant
 		{
 			ClassDeclarationSyntax node = context.Node as ClassDeclarationSyntax;
 
+			if (Configuration.isEnabledForPublishMembersOnly&&!node.Modifiers.Any(SyntaxKind.PublicKeyword))
+			{
+				return;
+			}
+
 			DocumentationCommentTriviaSyntax commentTriviaSyntax = node
 				.GetLeadingTrivia()
 				.Select(o => o.GetStructure())
@@ -74,7 +79,5 @@ namespace DocumentationAssistant
 
 			context.ReportDiagnostic(Diagnostic.Create(Rule, node.Identifier.GetLocation()));
 		}
-
-	
 	}
 }

@@ -61,6 +61,11 @@ namespace DocumentationAssistant
 		{
 			PropertyDeclarationSyntax node = context.Node as PropertyDeclarationSyntax;
 
+			if (Configuration.isEnabledForPublishMembersOnly && !node.Modifiers.Any(SyntaxKind.PublicKeyword))
+			{
+				return;
+			}
+
 			DocumentationCommentTriviaSyntax commentTriviaSyntax = node
 				.GetLeadingTrivia()
 				.Select(o => o.GetStructure())
