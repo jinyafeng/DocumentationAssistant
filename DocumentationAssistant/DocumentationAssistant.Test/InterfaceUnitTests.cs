@@ -64,7 +64,7 @@ namespace ConsoleApp4
 		/// <param name="line">The line.</param>
 		/// <param name="column">The column.</param>
 		[DataTestMethod]
-		[DataRow(TestCode, TestFixCode, 8,12)]
+		[DataRow(TestCode, TestFixCode, 8, 12)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
 			var expected = new DiagnosticResult
