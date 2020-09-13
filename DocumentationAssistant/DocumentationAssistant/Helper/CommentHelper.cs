@@ -67,6 +67,16 @@ namespace DocumentationAssistant.Helper
 		}
 
 		/// <summary>
+		/// Creates the enum comment.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns>A string.</returns>
+		public static string CreateEnumComment(string name)
+		{
+			return CreateCommonComment(name);
+		}
+
+		/// <summary>
 		/// Creates property comment.
 		/// </summary>
 		/// <param name="name">The name.</param>
