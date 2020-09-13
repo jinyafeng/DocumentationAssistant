@@ -3,9 +3,9 @@
     <Metadata>
         <Identity Id="DocumentationAssistant.cb663913-ed4f-43aa-90b4-d90128bb4dbc" Version="1.5.0" Language="en-US" Publisher="jinyafeng"/>
         <DisplayName>DocumentationAssistant</DisplayName>
-        <Description xml:space="preserve">A Visual Studio Extension to check and generate xml comments automatically using IntelliSense.
+        <Description xml:space="preserve">An open source Visual Studio Extension to check and generate xml comments automatically using IntelliSense.
 
-Now it can generate comments automatically for Class, Readonly field, Constructor, Property and Method.</Description>
+It can generate comments automatically for the Interface,Class,Enum, Readonly field, Constructor, Property and Method.</Description>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0,)" />
