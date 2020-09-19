@@ -64,13 +64,13 @@ namespace Test
 		/// <param name="line">The line.</param>
 		/// <param name="column">The column.</param>
 		[DataTestMethod]
-		[DataRow(TestCode, TestFixCode, 8,12)]
+		[DataRow(TestCode, TestFixCode, 8, 7)]
 		public void ShowDiagnosticAndFix(string testCode, string fixCode, int line, int column)
 		{
-			var expected = new DiagnosticResult
+			DiagnosticResult expected = new DiagnosticResult
 			{
-				Id = InterfaceAnalyzer.DiagnosticId,
-				Message = InterfaceAnalyzer.MessageFormat,
+				Id = EnumAnalyzer.DiagnosticId,
+				Message = EnumAnalyzer.MessageFormat,
 				Severity = DiagnosticSeverity.Warning,
 				Locations =
 					new[] {
@@ -89,7 +89,7 @@ namespace Test
 		/// <returns>A CodeFixProvider.</returns>
 		protected override CodeFixProvider GetCSharpCodeFixProvider()
 		{
-			return new InterfaceCodeFixProvider();
+			return new EnumCodeFixProvider();
 		}
 
 		/// <summary>
@@ -98,7 +98,7 @@ namespace Test
 		/// <returns>A DiagnosticAnalyzer.</returns>
 		protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
 		{
-			return new InterfaceAnalyzer();
+			return new EnumAnalyzer();
 		}
 	}
 }
