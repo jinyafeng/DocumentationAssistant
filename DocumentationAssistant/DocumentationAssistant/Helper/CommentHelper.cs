@@ -50,6 +50,33 @@ namespace DocumentationAssistant.Helper
 		}
 
 		/// <summary>
+		/// Creates the interface comment.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns>The class comment.</returns>
+		public static string CreateInterfaceComment(string name)
+		{
+			List<string> parts = SpilitNameAndToLower(name, false);
+			if (parts[0]=="I")
+			{
+				parts.RemoveAt(0);
+			}
+
+			parts.Insert(0,"The");
+			return string.Join(" ",parts)+".";
+		}
+
+		/// <summary>
+		/// Creates the enum comment.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns>A string.</returns>
+		public static string CreateEnumComment(string name)
+		{
+			return CreateCommonComment(name);
+		}
+
+		/// <summary>
 		/// Creates property comment.
 		/// </summary>
 		/// <param name="name">The name.</param>
@@ -177,13 +204,13 @@ namespace DocumentationAssistant.Helper
 		/// Spilits name and make words lower.
 		/// </summary>
 		/// <param name="name">The name.</param>
-		/// <param name="includeFirst">If true, the first character will be lower.</param>
+		/// <param name="isFirstCharacterLower">If true, the first character will be lower.</param>
 		/// <returns>A list of words.</returns>
-		private static List<string> SpilitNameAndToLower(string name, bool includeFirst)
+		private static List<string> SpilitNameAndToLower(string name, bool isFirstCharacterLower)
 		{
 			List<string> parts = NameSpliter.Split(name);
 
-			int i = includeFirst ? 0 : 1;
+			int i = isFirstCharacterLower ? 0 : 1;
 			for (; i < parts.Count; i++)
 			{
 				parts[i] = parts[i].ToLower();

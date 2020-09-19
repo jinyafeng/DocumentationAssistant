@@ -61,7 +61,7 @@ namespace DocumentationAssistant
 		{
 			ClassDeclarationSyntax node = context.Node as ClassDeclarationSyntax;
 
-			if (Configuration.isEnabledForPublishMembersOnly&&!node.Modifiers.Any(SyntaxKind.PublicKeyword))
+			if (Configuration.IsEnabledForPublishMembersOnly&&!node.Modifiers.Any(SyntaxKind.PublicKeyword))
 			{
 				return;
 			}
