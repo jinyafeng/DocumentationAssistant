@@ -1,25 +1,3 @@
 # Documentation Assistant
-A Visual Studio Extension to check and generate xml comments automatically using IntelliSense.  
-It can generate comments automatically for Class, Readonly field, Constructor, Property and Method.  
-It support Visual Studio 2017 & Visual Studio 2019 any editions.  
-You can download vsix file from [VS marketplace](https://marketplace.visualstudio.com/items?itemName=jinyafeng.DocumentationAssistant).
-
-----------------------------------------------------------------------------------------------------------
-# Notes
-If your project only need to document public members. Please use this same product but only enabled to public members. Please click here [VsMarketplace](https://marketplace.visualstudio.com/items?itemName=jinyafeng.DocumentationAssistantPublicMembersOnly). **If you already installed this product, please uninstall it firstly.**
-
-# Instructions
-After you installed it to your Visual Studio.  
-You can see warning wave line below class members which don't have documentation on it.  
-![](https://github.com/jinyafeng/DocumentationAssistant/blob/master/GifInstruction/warning%20wave%20line.gif)
-
-Then you can click the bulb to see fix option. When you click the option, the documentation will be added.  
-![](https://github.com/jinyafeng/DocumentationAssistant/blob/master/GifInstruction/quick%20action%20options.gif)
-
-You can use shortcut(Alt+Enter or Ctrl+.) to quickly add the documentation.  
-![](https://github.com/jinyafeng/DocumentationAssistant/blob/master/GifInstruction/short%20cut%20to%20quick%20add.gif)
-
-----------------------------------------------------------------------------------------------------------
-It can help you generate general documentation according to the member identifier.  
-Please add **additional information** if you think it is not good.  
-Hope it can save your time and make you more focus on code.  
+A Visual Studio Extension to generate XML documentation automatically using IntelliSense for interface,class,enum, field, constructor, property and method.
+Please see here [VS marketplace](https://marketplace.visualstudio.com/items?itemName=jinyafeng.DocumentationAssistant) for more information.
