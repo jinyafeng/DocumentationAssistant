@@ -61,7 +61,7 @@ namespace DocumentationAssistant
 		{
 			FieldDeclarationSyntax node = context.Node as FieldDeclarationSyntax;
 
-			if (Configuration.IsEnabledForPublishMembersOnly && !node.Modifiers.Any(SyntaxKind.PublicKeyword))
+			if (Configuration.IsEnabledForPublishMembersOnly && PrivateMemberVerifier.IsPrivateMember(node))
 			{
 				return;
 			}

@@ -60,8 +60,8 @@ namespace DocumentationAssistant
 		private static void AnalyzeNode(SyntaxNodeAnalysisContext context)
 		{
 			ClassDeclarationSyntax node = context.Node as ClassDeclarationSyntax;
-
-			if (Configuration.IsEnabledForPublishMembersOnly&&!node.Modifiers.Any(SyntaxKind.PublicKeyword))
+			
+			if (Configuration.IsEnabledForPublishMembersOnly&&PrivateMemberVerifier.IsPrivateMember(node))
 			{
 				return;
 			}
