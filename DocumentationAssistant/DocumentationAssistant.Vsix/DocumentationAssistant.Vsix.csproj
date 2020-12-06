@@ -60,7 +60,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DocumentatioAssistant.Configuration\DocumentationAssistant.Configuration.csproj">
+    <ProjectReference Include="..\DocumentationAssistant.Configuration\DocumentationAssistant.Configuration.csproj">
       <Project>{994D95DB-E227-4078-A8B5-EE7D66F15699}</Project>
       <Name>DocumentationAssistant.Configuration</Name>
       <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3bPkgdefProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>

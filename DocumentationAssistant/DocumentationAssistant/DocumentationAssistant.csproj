@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DocumentatioAssistant.Configuration\DocumentationAssistant.Configuration.csproj" />
+    <ProjectReference Include="..\DocumentationAssistant.Configuration\DocumentationAssistant.Configuration.csproj" />
   </ItemGroup>
 
 </Project>
