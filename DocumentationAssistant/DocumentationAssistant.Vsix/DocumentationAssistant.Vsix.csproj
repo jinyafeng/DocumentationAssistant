@@ -59,6 +59,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DocumentationAssistant.Config\DocumentationAssistant.Config.csproj">
+      <Project>{419115D7-A23C-4561-BF2D-D8C8EB0A17F1}</Project>
+      <Name>DocumentationAssistant.Config</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3bPkgdefProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
+    </ProjectReference>
     <ProjectReference Include="..\DocumentationAssistant\DocumentationAssistant.csproj">
       <Project>{7E144CCA-9B83-4C1A-83F0-2B8AD87C2CE0}</Project>
       <Name>DocumentationAssistant</Name>

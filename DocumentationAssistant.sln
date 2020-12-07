@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationAssistant.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentationAssistant.Vsix", "DocumentationAssistant\DocumentationAssistant.Vsix\DocumentationAssistant.Vsix.csproj", "{213F13FD-8CFB-46A7-87F6-3A4ED53E2C68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentationAssistant.Config", "DocumentationAssistant\DocumentationAssistant.Config\DocumentationAssistant.Config.csproj", "{419115D7-A23C-4561-BF2D-D8C8EB0A17F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{213F13FD-8CFB-46A7-87F6-3A4ED53E2C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{213F13FD-8CFB-46A7-87F6-3A4ED53E2C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{213F13FD-8CFB-46A7-87F6-3A4ED53E2C68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419115D7-A23C-4561-BF2D-D8C8EB0A17F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419115D7-A23C-4561-BF2D-D8C8EB0A17F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419115D7-A23C-4561-BF2D-D8C8EB0A17F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419115D7-A23C-4561-BF2D-D8C8EB0A17F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
