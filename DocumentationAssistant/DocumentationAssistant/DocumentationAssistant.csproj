@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard1.3</TargetFramework>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
@@ -29,7 +29,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.6.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.9.0-beta4-63006-05" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.206" />
     <PackageReference Include="Pluralize.NET" Version="0.1.84" />
     <PackageReference Update="NETStandard.Library" PrivateAssets="all" />
   </ItemGroup>
@@ -37,10 +36,6 @@
   <ItemGroup>
     <None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="true" PackagePath="" />
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DocumentationAssistant.Configuration\DocumentationAssistant.Configuration.csproj" />
   </ItemGroup>
 
 </Project>
