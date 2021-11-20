@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="DocumentationAssistant.vs2022.43883830-17ca-45db-8e46-bf1d6e16b37c" Version="1.0" Language="en-US" Publisher="Dan Turco" />
+        <Identity Id="DocumentationAssistant.vs2022.43883830-17ca-45db-8e46-bf1d6e16b37c" Version="2.0" Language="en-US" Publisher="Dan Turco" />
         <DisplayName>DocumentationAssistant VS2022</DisplayName>
         <Description xml:space="preserve">An Extension to generate XML documentation automatically using IntelliSense for interface,class,enum, field, constructor, property and method. Removed support for Option: IsEnabledForPublishMembersOnly</Description>
     </Metadata>
