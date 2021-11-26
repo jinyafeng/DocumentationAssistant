@@ -50,14 +50,14 @@ namespace DocumentationAssistant.Vsix2022
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            //We setup this hook to get the latest options from the settings. There is no Options Saved event that fires to get a hook into knowing when the options 
+            //We setup this hook to get the latest options from the settings. There is no Options Saved event that fires to get a hook into knowing when the options
             //have changed so we need to get fresh ones every time the documentation creator runs
             BridgedOptions.RegisterOptionLoaderCallback =  () => {
                 _options = (OptionPageGrid)GetDialogPage(typeof(OptionPageGrid));
                 return new BridgedOptions(_options.IsEnabledForPublishMembersOnly, _options.UseNaturalLanguageForReturnNode);
             };
 
-            
+
             await base.InitializeAsync(cancellationToken, progress);
         }
 
@@ -102,7 +102,7 @@ namespace DocumentationAssistant.Vsix2022
     public class OptionPageGrid : Microsoft.VisualStudio.Shell.DialogPage
     {
         private bool _isEnabledForPublishMembersOnly;
-        private bool _useNaturalLanguageForReturnNode = true;
+        private bool _useNaturalLanguageForReturnNode;
 
         [Category("DocumentationAssistant")]
         [DisplayName("Enable Headers For Public Members Only")]
