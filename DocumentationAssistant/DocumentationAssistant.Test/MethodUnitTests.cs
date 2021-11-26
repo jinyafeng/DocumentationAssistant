@@ -1,8 +1,12 @@
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestHelper;
+using System.Linq;
 
 namespace DocumentationAssistant.Test
 {
@@ -553,5 +557,92 @@ namespace ConsoleApp4
 		{
 			return new MethodAnalyzer();
 		}
+
+
+
+        #region GetExceptions
+        private const string MethodWithException = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with list list int return tester.
+        /// </summary>
+        /// <returns><![CDATA[List<List<int>>]]></returns>
+        public List<List<int>> ShowMethodWithListListIntReturnTester()
+		{
+			throw new Exception(""test"");
+		}
 	}
+}";
+
+        [TestMethod]
+        public async Task GetExceptions_ReturnsMatches()
+        {
+            var exceptions = MethodCodeFixProvider.GetExceptions(MethodWithException);
+            Assert.AreEqual(1, exceptions.ToList().Count);
+        }
+
+
+        private const string MethodWithNoException = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with list list int return tester.
+        /// </summary>
+        /// <returns><![CDATA[List<List<int>>]]></returns>
+        public List<List<int>> ShowMethodWithListListIntReturnTester()
+		{
+			return null;
+		}
+	}
+}";
+
+        [TestMethod]
+        public async Task GetExceptions_ReturnsNoMatches_WhenNoExceptions()
+        {
+            var exceptions = MethodCodeFixProvider.GetExceptions(MethodWithNoException);
+            Assert.AreEqual(0, exceptions.ToList().Count);
+        }
+
+        private const string MethodWithDuplicateException = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp4
+{
+	public class MethodTester
+	{
+        /// <summary>
+        /// Shows the method with list list int return tester.
+        /// </summary>
+        /// <returns><![CDATA[List<List<int>>]]></returns>
+        public List<List<int>> ShowMethodWithListListIntReturnTester()
+		{
+			throw new Exception(""test"");
+            throw new Exception(""test"");
+		}
+	}
+}";
+
+        [TestMethod]
+        public async Task GetExceptions_ReturnsDistinctMatches_WhenDuplicateExceptions()
+        {
+            var exceptions = MethodCodeFixProvider.GetExceptions(MethodWithDuplicateException);
+            Assert.AreEqual(1, exceptions.ToList().Count);
+        }
+        #endregion
+    }
 }

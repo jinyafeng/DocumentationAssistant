@@ -1,6 +1,9 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Composition;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +15,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+[assembly: InternalsVisibleTo("DocumentationAssistant.Test")]
 namespace DocumentationAssistant
 {
     /// <summary>
@@ -69,6 +73,23 @@ namespace DocumentationAssistant
         }
 
         /// <summary>
+        /// Gets the exceptions from the body
+        /// </summary>
+        /// <param name="textToSearch"></param>
+        /// <returns></returns>
+        internal static IEnumerable<string> GetExceptions(string textToSearch)
+        {
+            if (string.IsNullOrEmpty(textToSearch))
+            {
+                return Enumerable.Empty<string>();
+            }
+            var exceptions = regEx.Matches(textToSearch).OfType<Match>()
+                                                        .Select(m => m?.Groups[0]?.Value)
+                                                        .Distinct();
+            return exceptions;
+        }
+
+        /// <summary>
         ///   Adds documentation header async.
         /// </summary>
         /// <param name="document"> The document. </param>
@@ -109,9 +130,7 @@ namespace DocumentationAssistant
                 }
             }
 
-            var exceptions = regEx.Matches(declarationSyntax.Body.ToFullString()).OfType<Match>()
-                                                                                 .Select(m => m.Groups[0].Value)
-                                                                                 .Distinct();
+            var exceptions = GetExceptions(declarationSyntax.Body?.ToFullString());
 
             if (exceptions.Any())
             {
