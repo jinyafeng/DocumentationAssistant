@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentationAssistant", "DocumentationAssistant\DocumentationAssistant\DocumentationAssistant.csproj", "{7E144CCA-9B83-4C1A-83F0-2B8AD87C2CE0}"
 EndProject

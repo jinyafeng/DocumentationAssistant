@@ -61,13 +61,13 @@ namespace DocumentationAssistant
 		{
 			FieldDeclarationSyntax node = context.Node as FieldDeclarationSyntax;
 
-			if (Configuration.IsEnabledForPublishMembersOnly && PrivateMemberVerifier.IsPrivateMember(node))
+			// Only const field.
+			if (!node.Modifiers.Any(SyntaxKind.ConstKeyword))
 			{
 				return;
 			}
 
-			// Only const field.
-			if (!node.Modifiers.Any(SyntaxKind.ConstKeyword))
+			if (Configuration.IsEnabledForPublicMembersOnly && PrivateMemberChecker.IsPrivateMember(node))
 			{
 				return;
 			}

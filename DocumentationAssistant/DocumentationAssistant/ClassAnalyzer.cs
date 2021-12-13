@@ -48,10 +48,7 @@ namespace DocumentationAssistant
 		/// Initializes action.
 		/// </summary>
 		/// <param name="context">The context.</param>
-		public override void Initialize(AnalysisContext context)
-		{
-			context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.ClassDeclaration);
-		}
+		public override void Initialize(AnalysisContext context) => context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.ClassDeclaration);
 
 		/// <summary>
 		/// Analyzes node.
@@ -59,9 +56,9 @@ namespace DocumentationAssistant
 		/// <param name="context">The context.</param>
 		private static void AnalyzeNode(SyntaxNodeAnalysisContext context)
 		{
-			ClassDeclarationSyntax node = context.Node as ClassDeclarationSyntax;
-			
-			if (Configuration.IsEnabledForPublishMembersOnly&&PrivateMemberVerifier.IsPrivateMember(node))
+			var node = context.Node as ClassDeclarationSyntax;
+
+			if (Configuration.IsEnabledForPublicMembersOnly && PrivateMemberChecker.IsPrivateMember(node))
 			{
 				return;
 			}
@@ -72,7 +69,7 @@ namespace DocumentationAssistant
 				.OfType<DocumentationCommentTriviaSyntax>()
 				.FirstOrDefault();
 
-			if (commentTriviaSyntax != null&&CommentHelper.HasComment(commentTriviaSyntax))
+			if (commentTriviaSyntax != null && CommentHelper.HasComment(commentTriviaSyntax))
 			{
 				return;
 			}

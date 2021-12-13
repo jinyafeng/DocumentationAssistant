@@ -61,7 +61,7 @@ namespace DocumentationAssistant
 		{
 			ConstructorDeclarationSyntax node = context.Node as ConstructorDeclarationSyntax;
 
-			if (Configuration.IsEnabledForPublishMembersOnly && PrivateMemberVerifier.IsPrivateMember(node))
+			if (Configuration.IsEnabledForPublicMembersOnly && PrivateMemberChecker.IsPrivateMember(node))
 			{
 				return;
 			}

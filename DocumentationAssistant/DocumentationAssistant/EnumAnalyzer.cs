@@ -67,7 +67,7 @@ namespace DocumentationAssistant
 				.OfType<DocumentationCommentTriviaSyntax>()
 				.FirstOrDefault();
 
-			if (commentTriviaSyntax != null&&CommentHelper.HasComment(commentTriviaSyntax))
+			if (commentTriviaSyntax != null && CommentHelper.HasComment(commentTriviaSyntax))
 			{
 				return;
 			}

@@ -2,6 +2,9 @@
 {
 	public static class Configuration
 	{
-		public static bool IsEnabledForPublishMembersOnly = true;
+		/// <summary>
+		/// Gets a value indicating whether the tool is enabled for only public members.
+		/// </summary>
+		public static bool IsEnabledForPublicMembersOnly => false;
 	}
 }
