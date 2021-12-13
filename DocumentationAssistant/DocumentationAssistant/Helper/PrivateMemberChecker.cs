@@ -1,16 +1,13 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DocumentationAssistant.Helper
 {
 	/// <summary>
-	/// Verifies whether a member is private.
+	/// A checker to check whether a member is private.
 	/// </summary>
-	public class PrivateMemberVerifier
+	public class PrivateMemberChecker
 	{
 		public static bool IsPrivateMember(ClassDeclarationSyntax node)
 		{
@@ -29,7 +26,7 @@ namespace DocumentationAssistant.Helper
 				return true;
 			}
 
-			// If the member is public, we still need to verify whether its parent class is a private class.
+			// If the member is public, we still need to check whether its parent class is a private class.
 			// Since we don't want show warnings for public members within a private class.
 			return IsPrivateMember(node.Parent as ClassDeclarationSyntax);
 		}
@@ -41,7 +38,7 @@ namespace DocumentationAssistant.Helper
 				return true;
 			}
 
-			// If the member is public, we still need to verify whether its parent class is a private class.
+			// If the member is public, we still need to check whether its parent class is a private class.
 			// Since we don't want show warnings for public members within a private class.
 			return IsPrivateMember(node.Parent as ClassDeclarationSyntax);
 		}
@@ -53,7 +50,7 @@ namespace DocumentationAssistant.Helper
 				return true;
 			}
 
-			// If the member is public, we still need to verify whether its parent class is a private class.
+			// If the member is public, we still need to check whether its parent class is a private class.
 			// Since we don't want show warnings for public members within a private class.
 			return IsPrivateMember(node.Parent as ClassDeclarationSyntax);
 		}
@@ -65,7 +62,7 @@ namespace DocumentationAssistant.Helper
 				return true;
 			}
 
-			// If the member is public, we still need to verify whether its parent class is a private class.
+			// If the member is public, we still need to check whether its parent class is a private class.
 			// Since we don't want show warnings for public members within a private class.
 			return IsPrivateMember(node.Parent as ClassDeclarationSyntax);
 		}

@@ -58,6 +58,11 @@ namespace DocumentationAssistant
 		{
 			var node = context.Node as ClassDeclarationSyntax;
 
+			if (Configuration.IsEnabledForPublicMembersOnly && PrivateMemberChecker.IsPrivateMember(node))
+			{
+				return;
+			}
+
 			DocumentationCommentTriviaSyntax commentTriviaSyntax = node
 				.GetLeadingTrivia()
 				.Select(o => o.GetStructure())

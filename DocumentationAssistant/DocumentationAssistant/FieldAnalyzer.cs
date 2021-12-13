@@ -67,6 +67,11 @@ namespace DocumentationAssistant
 				return;
 			}
 
+			if (Configuration.IsEnabledForPublicMembersOnly && PrivateMemberChecker.IsPrivateMember(node))
+			{
+				return;
+			}
+
 			DocumentationCommentTriviaSyntax commentTriviaSyntax = node
 				.GetLeadingTrivia()
 				.Select(o => o.GetStructure())
