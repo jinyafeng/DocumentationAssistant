@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="DocumentationAssistant.64c7f98c-bf02-4a60-9f8e-9ca5fd269fd7" Version="2.1.0" Language="en-US" Publisher="jinyafeng"/>
+        <Identity Id="DocumentationAssistant.64c7f98c-bf02-4a60-9f8e-9ca5fd269fd7" Version="2.2.0" Language="en-US" Publisher="jinyafeng"/>
         <DisplayName>DocumentationAssistantPublicMembersOnly</DisplayName>
-        <Description xml:space="preserve">An Extension to generate XML documentation automatically using IntelliSense for interface,class,enum, field, constructor, property and method.</Description>
+        <Description xml:space="preserve">An Extension to generate XML documentation automatically using IntelliSense for interface,class,enum, field, constructor, property and method. </Description>
         <Preview>true</Preview>
     </Metadata>
     <Installation>
